@@ -39,7 +39,7 @@ input[type=number]:disabled::-webkit-outer-spin-button {
 
 input[disabled] {-moz-appearance: textfield}
 input[type="number"]:disabled {
-    color: LightGray;
+    color: Gray;
 }
 
 .repcontainer .btn,
