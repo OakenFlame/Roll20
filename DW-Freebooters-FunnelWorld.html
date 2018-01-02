@@ -29,7 +29,7 @@
 <div class="sheet-statistics">
 	<div class="sheet-header">
 		<div class="sheet-section-name">Hit Dice</div>
-		<input type="hidden" name="attr_calc_hitdice" value="0" />
+		<input type="hidden" name="attr_calc_hitdice" value="4" />
 		<input type="number" name="attr_hitdice" value="@{calc_hitdice}" disabled="true">
 		<button type="roll" name='roll_RollHitDice' value='@{character_name} rolls [[1d@{hitdice}]] on their hit dice.'></button>
 	</div>
@@ -362,7 +362,7 @@ on("change:class", function() {
                 hitDice = 4;
                 break;
             case "Fighter":
-                hitDice = 12;
+                hitDice = 10;
                 break;
             case "Thief":
                 hitDice = 6;
