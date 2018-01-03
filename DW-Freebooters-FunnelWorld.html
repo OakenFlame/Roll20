@@ -1,15 +1,16 @@
 <!-- TODO LIST
-    -- 1. Auto-Calc Coin Weight
-    -- 2. Auto-Calc Weight
-    -- 3. Auto-Calc Armor
-    -- 4. Class Dropdown
-    -- 5. Auto-Calc Hit Dice by Class
-    -- 6. Auto-Calc Base Load (STR + HIT DICE)
-    7. Encumbered Check -1 to all rolls on-going if +1 over load
-    -- 8. Auto-Calc Total Hit Points -- REMOVED. Players control this and it's variable.
+    -- 1. Encumbered Status Marker on Sheet
+    -- 2. Encumbered Check -1 to all rolls on-going if +1 over load
+    3. Encumbered Checkboxes to HIDE all moves, spells, and damage dice for weapons. 
+    4. Damage modifier dropdwn for weapons. +3 to -3.
+    5. Roll buttons for 1d4, 1d6, 1d8, 1d10, 1d12, 2d6.
+    6. Damaged gear toggle.
+    7. Hide the attributes on the Abilities and Attributes Tab on the sheet.
+    8. Health Points changing color based on total. 10% left provide a visual que.
 -->
+
 <!-- ===== GLOBALS ===== -->
-<input type="hidden" name="attr_calc_encumbered" value="No" />
+<input type="hidden" name="attr_calc_encumbered" value="0" />
 <input type="hidden" name="attr_calc_weapons_load" value="0" />
 <input type="hidden" name="attr_calc_armors_load" value="0" />
 <input type="hidden" name="attr_calc_items_load" value="0" />
@@ -69,7 +70,8 @@
 		<div class="sheet-row-3">
 			<input type="hidden" name="attr_calc_strength_mod" value="0" />
 			<input type="number" name="attr_strength_mod" value="@{calc_strength_mod}" disabled="true">
-			<button type="roll" name="roll_TestStrength" value="@{character_name} rolls [[2d6 + @{strength_mod}]] on STR.">
+			<input type="checkbox" name="attr_toggle_double_encumbered_strength" class="sheet-toggle-double-encumbered" value="1"/>
+			<button type="roll" name="roll_TestStrength" class="sheet-show" value="@{character_name} rolls [[2d6 + @{strength_mod} + @{calc_encumbered}]] on STR.">
 		</div>
 		<label class="sheet-bottom" for="attr_strength_mod">STR</label>
 	</div>
@@ -84,7 +86,8 @@
 		<div class="sheet-row-3">
 			<input type="hidden" name="attr_calc_dexterity_mod" value="0" />
 	        <input type="number" name="attr_dexterity_mod" value="@{calc_dexterity_mod}" disabled="true">
-			<button type="roll" name="roll_TestDexterity" value="@{character_name} rolls [[2d6 + @{dexterity_mod}]] on DEX.">
+	        <input type="checkbox" name="attr_toggle_double_encumbered_dexterity" class="sheet-toggle-double-encumbered" value="1"/>
+			<button type="roll" name="roll_TestDexterity" class="sheet-show" value="@{character_name} rolls [[2d6 + @{dexterity_mod} + @{calc_encumbered}]] on DEX.">
 		</div>
 		<label class="sheet-bottom" for="attr_dexterity_mod">DEX</label>
 	</div>
@@ -100,7 +103,8 @@
 		<div class="sheet-row-3">
 		    <input type="hidden" name="attr_calc_constitution_mod" value="0" />
 			<input type="number" name="attr_constitution_mod" value="@{calc_constitution_mod}" disabled="true">
-		    <button type="roll" name="roll_TestConstitution" value="@{character_name} rolls [[2d6 + @{constitution_mod}]] on CON.">
+			<input type="checkbox" name="attr_toggle_double_encumbered_constitution" class="sheet-toggle-double-encumbered" value="1"/>
+		    <button type="roll" name="roll_TestConstitution" class="sheet-show" value="@{character_name} rolls [[2d6 + @{constitution_mod} + @{calc_encumbered}]] on CON.">
 		</div>
 		<label class="sheet-bottom" for="attr_constitution_mod">CON</label>
 	</div>
@@ -115,7 +119,8 @@
 		<div class="sheet-row-3">
 			<input type="hidden" name="attr_calc_intelligence_mod" value="0" />
 			<input type="number" name="attr_intelligence_mod" value="@{calc_intelligence_mod}" disabled="true">
-            <button type="roll" name="roll_TestIntelligence" value="@{character_name} rolls [[2d6 + @{intelligence_mod}]] on INT.">
+			<input type="checkbox" name="attr_toggle_double_encumbered_intelligence" class="sheet-toggle-double-encumbered" value="1"/>
+            <button type="roll" name="roll_TestIntelligence" class="sheet-show" value="@{character_name} rolls [[2d6 + @{intelligence_mod} + @{calc_encumbered}]] on INT.">
 		</div>
 		<label class="sheet-bottom" for="attr_intelligence_mod">INT</label>
 	</div>
@@ -130,7 +135,8 @@
 		<div class="sheet-row-3">
             <input type="hidden" name="attr_calc_wisdom_mod" value="0" />
 			<input type="number" name="attr_wisdom_mod" value="@{calc_wisdom_mod}" disabled="true">
-			<button type="roll" name="roll_TestWisdom" value="@{character_name} rolls [[2d6 + @{wisdom_mod}]] on WIS.">
+			<input type="checkbox" name="attr_toggle_double_encumbered_wisdom" class="sheet-toggle-double-encumbered" value="1"/>
+			<button type="roll" name="roll_TestWisdom" class="sheet-show" value="@{character_name} rolls [[2d6 + @{wisdom_mod} + @{calc_encumbered}]] on WIS.">
 		</div>
 		<label class="sheet-bottom" for="attr_wisdom_mod">WIS</label>
 	</div>
@@ -145,7 +151,8 @@
 		<div class="sheet-row-3">
             <input type="hidden" name="attr_calc_charisma_mod" value="0" />
             <input type="number" name="attr_charisma_mod" value="@{calc_charisma_mod}" disabled="true">
-            <button type="roll" name="roll_TestCharisma" value="@{character_name} rolls [[2d6 + @{charisma_mod}]] on CHA.">
+            <input type="checkbox" name="attr_toggle_double_encumbered_charisma" class="sheet-toggle-double-encumbered" value="1"/>
+            <button type="roll" name="roll_TestCharisma" class="sheet-show" value="@{character_name} rolls [[2d6 + @{charisma_mod} + @{calc_encumbered}]] on CHA.">
 		</div>
 		<label class="sheet-bottom" for="attr_charisma_mod">CHA</label>
 	</div>
@@ -160,7 +167,8 @@
 		<div class="sheet-row-3">
             <input type="hidden" name="attr_calc_luck_mod" value="0" />
 			<input type="number" name="attr_luck_mod" value="@{calc_luck_mod}" disabled="true">
-            <button type="roll" name="roll_TestLuck" value="@{character_name} rolls [[2d6 + @{luck_mod}]] on LUC.">
+			<input type="checkbox" name="attr_toggle_double_encumbered_luck" class="sheet-toggle-double-encumbered" value="1"/>
+            <button type="roll" name="roll_TestLuck" class="sheet-show" value="@{character_name} rolls [[2d6 + @{luck_mod} + @{calc_encumbered}]] on LUC.">
 		</div>
 		<label class="sheet-bottom" for="attr_luck_mod">LUC</label>
 	</div>
@@ -171,20 +179,16 @@
     <!-- ===== LOAD ===== -->
 	<div class="sheet-header">
 		<div class="sheet-section-name">Load</div>
-
-		<!--<input type="checkbox" class="sheet-toggle" title="show/hide" name="attr_load-show" value="1">-->
-
 		<input class="sheet-show" type="number" name="attr_load_max" value="@{hitdice} + @{strength_mod}" disabled="true">
 		<span class="sheet-show">/</span>
 		<input type="hidden" name="attr_calc_load" value="0" />
 		<input type="number" class="load-count" name="attr_load" value="@{calc_load}" disabled="true" />
-		<span class="sheet-show sheet-section-name sheet-right">Load</span>
-        
-        <!--
-		<input class="sheet-hide" type="number" name="attr_baseload">
-		<span class="sheet-hide sheet-section-name sheet-right">Base Load</span>
-	    -->
 	</div>
+
+	<input class="sheet-toggle-encumbered" type="checkbox" name="attr_toggle_encumbered" value="1" />
+	<input type="text" name="attr_encumbered" class="sheet-hide" value="ENCUMBERED!" disabled="true"/>
+	<input class="sheet-toggle-double-encumbered" type="checkbox" name="attr_toggle_double_encumbered" value="1" />
+	<input type="text" name="attr_double_encumbered" class="sheet-hide" value="DOUBLE ENCUMBERED!!!" disabled="true"/>
 	
 	<!-- ===== WEAPONS ===== -->
 	<div class="sheet-header">
@@ -464,7 +468,7 @@ var calculateMod = function(attribute) {
 	return 0;
 };
 
-//TOTAL LOAD CALCULATION
+//TOTAL LOAD CALCULATION & EVENT HANDLER
 //Calculates the total weight carried by all weapons, armors, and items
 on("change:calc_weapons_load change:calc_armors_load change:calc_items_load change:calc_silver_weight change:calc_gold_weight", function() {
     getAttrs(["calc_weapons_load", "calc_armors_load", "calc_items_load", "calc_silver_weight", "calc_gold_weight"], function(values) {
@@ -474,12 +478,65 @@ on("change:calc_weapons_load change:calc_armors_load change:calc_items_load chan
 	});
 });
 
+//ENCUMBERED EVENT HANDLER
+//Checks if the load has exceeded the maximum load that can be carried safely
+on("change:calc_load", function() {
+    getAttrs(["calc_load", "calc_hitdice", "calc_strength_mod"], function(values) {
+        var currentLoad = Number(values.calc_load);
+        var maximumLoad = Number(values.calc_hitdice) + Number(values.calc_strength_mod);
+		
+		if (currentLoad >= (maximumLoad * 2)) {
+            setAttrs({
+                calc_encumbered: Number(1),
+			    toggle_encumbered: Number(0),
+    		    toggle_double_encumbered: Number(1),
+    		    toggle_double_encumbered_strength: Number(1),
+    		    toggle_double_encumbered_dexterity: Number(1),
+    		    toggle_double_encumbered_constitution: Number(1),
+    		    toggle_double_encumbered_intelligence: Number(1),
+    		    toggle_double_encumbered_wisdom: Number(1),
+    		    toggle_double_encumbered_charisma: Number(1),
+    		    toggle_double_encumbered_luck: Number(1)
+		    });
+        }
+        else if ((currentLoad >= maximumLoad) && (currentLoad < (maximumLoad * 2))) {
+            setAttrs({
+                calc_encumbered: Number(1),
+                toggle_encumbered: Number(1),
+    		    toggle_double_encumbered: Number(0),
+    		    toggle_double_encumbered_strength: Number(0),
+    		    toggle_double_encumbered_dexterity: Number(0),
+    		    toggle_double_encumbered_constitution: Number(0),
+    		    toggle_double_encumbered_intelligence: Number(0),
+    		    toggle_double_encumbered_wisdom: Number(0),
+    		    toggle_double_encumbered_charisma: Number(0),
+    		    toggle_double_encumbered_luck: Number(0)
+		    });
+        }
+        else if (currentLoad < maximumLoad) {
+            setAttrs({
+                calc_encumbered: Number(0),
+                toggle_encumbered: Number(0),
+        		toggle_double_encumbered: Number(0),
+        		toggle_double_encumbered_strength: Number(0),
+    		    toggle_double_encumbered_dexterity: Number(0),
+    		    toggle_double_encumbered_constitution: Number(0),
+    		    toggle_double_encumbered_intelligence: Number(0),
+    		    toggle_double_encumbered_wisdom: Number(0),
+    		    toggle_double_encumbered_charisma: Number(0),
+    		    toggle_double_encumbered_luck: Number(0)
+            });
+        }
+    }); 
+});
+
 //SILVER WEIGHT CHANGE EVENT HANDLER
 //Calculates the total weight of silver being carried
 on("change:silver_total", function() {
     getAttrs(["silver_total"], function(values) {
 		setAttrs({
-			calc_silver_weight: Math.floor(parseInt(values.silver_total) / 100)
+			calc_silver_weight: Math.floor(parseInt(values.silver_total) / 100),
+			toggle_encumbered: Number(1)
 		});
 	});
 });

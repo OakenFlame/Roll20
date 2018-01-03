@@ -49,7 +49,6 @@ input[type="number"]:disabled {
     border: none;
 }
 
-
 /* ===== LAYOUT ===== */
 .sheet-col-left {
 	float: left;
@@ -61,10 +60,45 @@ input[type="number"]:disabled {
 	width: 60%;
 }
 
-/* ===== TOGGLE ===== */
-.sheet-toggle:not(:checked) ~ .sheet-hide,
-.sheet-toggle:checked ~ .sheet-show {
-	display: none;
+/* ===== ENCUMBERED STATUS ===== */
+.sheet-toggle-encumbered {
+    display: none;
+}
+
+.sheet-toggle-double-encumbered {
+    display: none;
+}
+
+.sheet-toggle-encumbered:not(:checked) + .sheet-hide, 
+.sheet-toggle-encumbered:checked + .sheet-show {
+    display:none;
+}
+
+.sheet-toggle-double-encumbered:not(:checked) + .sheet-hide, 
+.sheet-toggle-double-encumbered:checked + .sheet-show {
+    display:none;
+}
+
+input[name="attr_encumbered"] {
+    background-color: red;
+    border: 0px;
+    border-radius: 4px;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+}
+
+input[name="attr_double_encumbered"] {
+    background-color: purple;
+    border: 0px;
+    border-radius: 4px;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
 }
 
 /* ===== SECTION HEADERS ===== */
