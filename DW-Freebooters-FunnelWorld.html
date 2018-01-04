@@ -1,11 +1,10 @@
 <!-- TODO LIST
     -- 1. Encumbered Status Marker on Sheet
     -- 2. Encumbered Check -1 to all rolls on-going if +1 over load
-    3. Encumbered Checkboxes to HIDE all moves, spells, and damage dice for weapons. 
-    4. Damage modifier dropdwn for weapons. +3 to -3.
-    5. Roll buttons for 1d4, 1d6, 1d8, 1d10, 1d12, 2d6.
-    6. Damaged gear toggle.
-    7. Hide the attributes on the Abilities and Attributes Tab on the sheet.
+    3. Double Encumbrance to hide damage dice for weapons. 
+    -- 4. Damage modifier dropdwn for weapons. +3 to -3.
+    -- 5. Roll buttons for 1d4, 1d6, 1d8, 1d10, 1d12, 2d6.
+    -- 6. Damaged gear toggle.
     8. Health Points changing color based on total. 10% left provide a visual que.
 -->
 
@@ -26,6 +25,22 @@
         </select>
 </div>
 
+<!-- ===== QUICK ACCESS ROLL BUTTONS ===== -->
+<div class="sheet-roll-bar">
+	<div class="sheet-header">
+		<div class="sheet-section-name">Quick Rolls</div>
+        <button type="roll" name='roll_Roll1d100' value='Rolls a 1d100 for [[1d100]]'><span>1d100</span></button>
+        <button type="roll" name='roll_Roll1d20' value='Rolls a 1d20 for [[1d20]]'><span>1d20</span></button>
+        <button type="roll" name='roll_Roll1d12' value='Rolls a 1d12 for [[1d12]]'><span>1d12</span></button>
+        <button type="roll" name='roll_Roll1d10' value='Rolls a 1d10 for [[1d10]]'><span>1d10</span></button>
+        <button type="roll" name='roll_Roll1d8' value='Rolls a 1d8 for [[1d8]]'><span>1d8</span></button>
+        <button type="roll" name='roll_Roll2d6' value='Rolls 2d6 for [[2d6]]'><span>2d6</span></button>
+        <button type="roll" name='roll_Roll1d6' value='Rolls a 1d6 for [[1d6]]'><span>1d6</span></button>
+        <button type="roll" name='roll_Roll1d4' value='Rolls a 1d4 for [[1d4]]'><span>1d4</span></button>
+	</div>
+</div>
+<div class="sheet-clearfix"></div>
+
 <!-- ===== CHARACTER STATS ===== -->
 <div class="sheet-statistics">
 	<div class="sheet-header">
@@ -36,8 +51,8 @@
 	</div>
 	<div class="sheet-header">
 		<div class="sheet-section-name">Armor</div>
-			<input type="hidden" name="attr_calc_armor" value="0" />
-			<input type="number" name="attr_armor" value="@{calc_armor}" disabled="true">
+		<input type="hidden" name="attr_calc_armor" value="0" />
+		<input type="number" name="attr_armor" value="@{calc_armor}" disabled="true">
 	</div>
 	<div class="sheet-header">
 		<div class="sheet-section-name">Level</div>
@@ -71,7 +86,7 @@
 			<input type="hidden" name="attr_calc_strength_mod" value="0" />
 			<input type="number" name="attr_strength_mod" value="@{calc_strength_mod}" disabled="true">
 			<input type="checkbox" name="attr_toggle_double_encumbered_strength" class="sheet-toggle-double-encumbered" value="1"/>
-			<button type="roll" name="roll_TestStrength" class="sheet-show" value="@{character_name} rolls [[2d6 + @{strength_mod} + @{calc_encumbered}]] on STR.">
+			<button type="roll" name="roll_TestStrength" class="sheet-show" value="@{character_name} rolls [[2d6 + @{strength_mod} - @{calc_encumbered}]] on STR.">
 		</div>
 		<label class="sheet-bottom" for="attr_strength_mod">STR</label>
 	</div>
@@ -87,7 +102,7 @@
 			<input type="hidden" name="attr_calc_dexterity_mod" value="0" />
 	        <input type="number" name="attr_dexterity_mod" value="@{calc_dexterity_mod}" disabled="true">
 	        <input type="checkbox" name="attr_toggle_double_encumbered_dexterity" class="sheet-toggle-double-encumbered" value="1"/>
-			<button type="roll" name="roll_TestDexterity" class="sheet-show" value="@{character_name} rolls [[2d6 + @{dexterity_mod} + @{calc_encumbered}]] on DEX.">
+			<button type="roll" name="roll_TestDexterity" class="sheet-show" value="@{character_name} rolls [[2d6 + @{dexterity_mod} - @{calc_encumbered}]] on DEX.">
 		</div>
 		<label class="sheet-bottom" for="attr_dexterity_mod">DEX</label>
 	</div>
@@ -104,7 +119,7 @@
 		    <input type="hidden" name="attr_calc_constitution_mod" value="0" />
 			<input type="number" name="attr_constitution_mod" value="@{calc_constitution_mod}" disabled="true">
 			<input type="checkbox" name="attr_toggle_double_encumbered_constitution" class="sheet-toggle-double-encumbered" value="1"/>
-		    <button type="roll" name="roll_TestConstitution" class="sheet-show" value="@{character_name} rolls [[2d6 + @{constitution_mod} + @{calc_encumbered}]] on CON.">
+		    <button type="roll" name="roll_TestConstitution" class="sheet-show" value="@{character_name} rolls [[2d6 + @{constitution_mod} - @{calc_encumbered}]] on CON.">
 		</div>
 		<label class="sheet-bottom" for="attr_constitution_mod">CON</label>
 	</div>
@@ -120,7 +135,7 @@
 			<input type="hidden" name="attr_calc_intelligence_mod" value="0" />
 			<input type="number" name="attr_intelligence_mod" value="@{calc_intelligence_mod}" disabled="true">
 			<input type="checkbox" name="attr_toggle_double_encumbered_intelligence" class="sheet-toggle-double-encumbered" value="1"/>
-            <button type="roll" name="roll_TestIntelligence" class="sheet-show" value="@{character_name} rolls [[2d6 + @{intelligence_mod} + @{calc_encumbered}]] on INT.">
+            <button type="roll" name="roll_TestIntelligence" class="sheet-show" value="@{character_name} rolls [[2d6 + @{intelligence_mod} - @{calc_encumbered}]] on INT.">
 		</div>
 		<label class="sheet-bottom" for="attr_intelligence_mod">INT</label>
 	</div>
@@ -136,7 +151,7 @@
             <input type="hidden" name="attr_calc_wisdom_mod" value="0" />
 			<input type="number" name="attr_wisdom_mod" value="@{calc_wisdom_mod}" disabled="true">
 			<input type="checkbox" name="attr_toggle_double_encumbered_wisdom" class="sheet-toggle-double-encumbered" value="1"/>
-			<button type="roll" name="roll_TestWisdom" class="sheet-show" value="@{character_name} rolls [[2d6 + @{wisdom_mod} + @{calc_encumbered}]] on WIS.">
+			<button type="roll" name="roll_TestWisdom" class="sheet-show" value="@{character_name} rolls [[2d6 + @{wisdom_mod} - @{calc_encumbered}]] on WIS.">
 		</div>
 		<label class="sheet-bottom" for="attr_wisdom_mod">WIS</label>
 	</div>
@@ -152,7 +167,7 @@
             <input type="hidden" name="attr_calc_charisma_mod" value="0" />
             <input type="number" name="attr_charisma_mod" value="@{calc_charisma_mod}" disabled="true">
             <input type="checkbox" name="attr_toggle_double_encumbered_charisma" class="sheet-toggle-double-encumbered" value="1"/>
-            <button type="roll" name="roll_TestCharisma" class="sheet-show" value="@{character_name} rolls [[2d6 + @{charisma_mod} + @{calc_encumbered}]] on CHA.">
+            <button type="roll" name="roll_TestCharisma" class="sheet-show" value="@{character_name} rolls [[2d6 + @{charisma_mod} - @{calc_encumbered}]] on CHA.">
 		</div>
 		<label class="sheet-bottom" for="attr_charisma_mod">CHA</label>
 	</div>
@@ -168,7 +183,7 @@
             <input type="hidden" name="attr_calc_luck_mod" value="0" />
 			<input type="number" name="attr_luck_mod" value="@{calc_luck_mod}" disabled="true">
 			<input type="checkbox" name="attr_toggle_double_encumbered_luck" class="sheet-toggle-double-encumbered" value="1"/>
-            <button type="roll" name="roll_TestLuck" class="sheet-show" value="@{character_name} rolls [[2d6 + @{luck_mod} + @{calc_encumbered}]] on LUC.">
+            <button type="roll" name="roll_TestLuck" class="sheet-show" value="@{character_name} rolls [[2d6 + @{luck_mod} - @{calc_encumbered}]] on LUC.">
 		</div>
 		<label class="sheet-bottom" for="attr_luck_mod">LUC</label>
 	</div>
@@ -204,7 +219,16 @@
                 <option value="10">d10</option>
                 <option value="12">d12</option>
             </select>
-            <button type='roll' name="roll_WeaponDamage" value="@{character_name} attacks with @{itemname} and rolls a [[1d@{weapon_atk_dtype}]]."></button>
+            <select name="attr_weapon_atk_bonus" value="0">                
+                <option value="-3">-3</option>
+                <option value="-2">-2</option>
+                <option value="-1">-1</option>
+                <option value="0" selected="selected">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
+            <button type='roll' name="roll_WeaponDamage" value="@{character_name} attacks with @{itemname} and rolls a [[1d@{weapon_atk_dtype} + @{weapon_atk_bonus}]]."></button>
 			<input name="attr_itemtags" type="text" placeholder="Tags">
 			<select name="attr_itemweight">                
                 <option value="0">0 Wgt</option>
@@ -217,7 +241,9 @@
                 <option value="7">7 Wgt</option>
                 <option value="8">8 Wgt</option>
                 <option value="9">9 Wgt</option>
-            </select><div class="sheet-clearfix"></div>
+            </select>
+            <div class="sheet-clearfix"></div>
+            <input type="checkbox" name="attr_itemweapon_damaged" value="1">Damaged</input>
 		</fieldset>
 	</div>
 
@@ -254,6 +280,7 @@
                 <option value="9">9 Wgt</option>
             </select>
 			<div class="sheet-clearfix"></div>
+		    <input type="checkbox" name="attr_itemarmor_damaged" value="1">Damaged</input>
 		</fieldset>
 	</div>
 
@@ -276,7 +303,9 @@
                 <option value="7">7 Wgt</option>
                 <option value="8">8 Wgt</option>
                 <option value="9">9 Wgt</option>
-            </select><div class="sheet-clearfix"></div>
+            </select>
+            <div class="sheet-clearfix"></div>
+            <input type="checkbox" name="attr_item_damaged" value="1">Damaged</input>
 		</fieldset>
 	</div>
 	
@@ -286,14 +315,14 @@
 	</div>
 	<div class="sheet-section-coins">
         <span>Silver</span>
-    	<input type="number" class="sheet-coin-total" name="attr_silver_total" placeholder="Total Silver Coins" title="Total Silver Coins">
+    	<input type="number" class="sheet-coin-total" name="attr_silver_total" placeholder="Total Silver Coins" title="Total Silver Coins" value="0" min="0">
         <input type="hidden" name="attr_calc_silver_weight" value="0" />
-		<input type="number" class="sheet-coin-weight" name="attr_silver_weight" value="@{calc_silver_weight}" disabled="true">
+		<input type="number" class="sheet-coin-weight" name="attr_silver_weight" placeholder="Wgt" value="@{calc_silver_weight}" disabled="true">
         <div class="sheet-clearfix"></div>
 		<span>Gold</span>
-		<input type="number" class="sheet-coin-total" name="attr_gold_total" placeholder="Total Gold Coins" title="Total Gold Coins">
+		<input type="number" class="sheet-coin-total" name="attr_gold_total" placeholder="Total Gold Coins" title="Total Gold Coins" value="0" min="0">
 		<input type="hidden" name="attr_calc_gold_weight" value="0" />
-		<input type="number" class="sheet-coin-weight" name="attr_gold_weight" value="@{calc_gold_weight}" disabled="true">
+		<input type="number" class="sheet-coin-weight" name="attr_gold_weight" placeholder="Wgt" value="@{calc_gold_weight}" disabled="true">
 	</div>
 </div>
 
@@ -319,9 +348,11 @@
 	</div>
 	
 	<!-- ===== MOVES ===== -->
+    <input type="checkbox" name="attr_toggle_double_encumbered_moves_title" class="sheet-toggle-double-encumbered-moves-title" value="1"/>
 	<div class="sheet-header">
 		<div class="sheet-section-name">Moves</div>
 	</div>
+	<input type="checkbox" name="attr_toggle_double_encumbered_moves" class="sheet-toggle-double-encumbered-moves" value="1"/>
 	<div class="sheet-section-moves">
 		<fieldset class="repeating_moves">
 			<input type="text" name="attr_movename" placeholder="Move Name">
@@ -335,9 +366,11 @@
 <br>
 
 <!-- ===== SPELLS ===== -->
+<input type="checkbox" name="attr_toggle_double_encumbered_spells_title" class="sheet-toggle-double-encumbered-spells-title" value="1"/>
 <div class="sheet-header">
 	<div class="sheet-section-name">Spells</div>
 </div>
+<input type="checkbox" name="attr_toggle_double_encumbered_spells" class="sheet-toggle-double-encumbered-spells" value="1"/>
 <div class="sheet-section-spells">
 	<fieldset class="repeating_spells sheet-section-spells">
 		<input type="text" name="attr_spellname" placeholder="Spell Name">
@@ -496,7 +529,11 @@ on("change:calc_load", function() {
     		    toggle_double_encumbered_intelligence: Number(1),
     		    toggle_double_encumbered_wisdom: Number(1),
     		    toggle_double_encumbered_charisma: Number(1),
-    		    toggle_double_encumbered_luck: Number(1)
+    		    toggle_double_encumbered_luck: Number(1),
+    		    toggle_double_encumbered_moves_title: Number(1),
+    		    toggle_double_encumbered_moves: Number(1),
+    		    toggle_double_encumbered_spells_title: Number(1),
+    		    toggle_double_encumbered_spells: Number(1)
 		    });
         }
         else if ((currentLoad >= maximumLoad) && (currentLoad < (maximumLoad * 2))) {
@@ -510,7 +547,11 @@ on("change:calc_load", function() {
     		    toggle_double_encumbered_intelligence: Number(0),
     		    toggle_double_encumbered_wisdom: Number(0),
     		    toggle_double_encumbered_charisma: Number(0),
-    		    toggle_double_encumbered_luck: Number(0)
+    		    toggle_double_encumbered_luck: Number(0),
+    		    toggle_double_encumbered_moves_title: Number(0),
+    		    toggle_double_encumbered_moves: Number(0),
+    		    toggle_double_encumbered_spells_title: Number(0),
+    		    toggle_double_encumbered_spells: Number(0)
 		    });
         }
         else if (currentLoad < maximumLoad) {
@@ -524,7 +565,11 @@ on("change:calc_load", function() {
     		    toggle_double_encumbered_intelligence: Number(0),
     		    toggle_double_encumbered_wisdom: Number(0),
     		    toggle_double_encumbered_charisma: Number(0),
-    		    toggle_double_encumbered_luck: Number(0)
+    		    toggle_double_encumbered_luck: Number(0),
+    		    toggle_double_encumbered_moves_title: Number(0),
+    		    toggle_double_encumbered_moves: Number(0),
+    		    toggle_double_encumbered_spells_title: Number(0),
+    		    toggle_double_encumbered_spells: Number(0)
             });
         }
     }); 

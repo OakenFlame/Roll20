@@ -60,47 +60,6 @@ input[type="number"]:disabled {
 	width: 60%;
 }
 
-/* ===== ENCUMBERED STATUS ===== */
-.sheet-toggle-encumbered {
-    display: none;
-}
-
-.sheet-toggle-double-encumbered {
-    display: none;
-}
-
-.sheet-toggle-encumbered:not(:checked) + .sheet-hide, 
-.sheet-toggle-encumbered:checked + .sheet-show {
-    display:none;
-}
-
-.sheet-toggle-double-encumbered:not(:checked) + .sheet-hide, 
-.sheet-toggle-double-encumbered:checked + .sheet-show {
-    display:none;
-}
-
-input[name="attr_encumbered"] {
-    background-color: red;
-    border: 0px;
-    border-radius: 4px;
-    color: white;
-    font-size: 14px;
-    font-weight: bold;
-    text-align: center;
-    width: 100%;
-}
-
-input[name="attr_double_encumbered"] {
-    background-color: purple;
-    border: 0px;
-    border-radius: 4px;
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
-    text-align: center;
-    width: 100%;
-}
-
 /* ===== SECTION HEADERS ===== */
 .sheet-header {
 	background-color: #000;
@@ -165,7 +124,6 @@ input[name="attr_double_encumbered"] {
 	float: left;
 }
 
-
 /* ===== MAIN HEADER ===== */
 .sheet-topbar {
 	height: 50px;
@@ -218,6 +176,27 @@ input[name="attr_double_encumbered"] {
 	line-height: 42px;
 }
 
+/* ===== QUICK ROLL BAR ===== */
+.sheet-header button[type="roll"] {
+	background: white;
+	border: none;
+	border-radius: 3px;
+	font-size: 20px;
+	height: 28px;
+	margin: 2px;
+	margin-right: 2px;
+	padding: 4px;
+	padding-top: 5px;
+	text-align: center;
+	width: auto;
+}
+
+.sheet-header button[type="roll"] span {
+    color: #555;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+}
 
 /* ===== STATISTICS ===== */
 .sheet-statistics {
@@ -235,7 +214,6 @@ input[name="attr_double_encumbered"] {
 .sheet-statistics .sheet-header:last-child {
 	margin-right: 0;
 }
-
 
 /* ===== ATTRIBUTES ===== */
 .sheet-attributes {
@@ -344,6 +322,7 @@ input[name="attr_double_encumbered"] {
 input[type="number"].sheet-coin-total {
 	width: 65%;
 	float: left;
+	text-align: center;
 }
 
 input[type="number"].sheet-coin-weight {
@@ -351,20 +330,7 @@ input[type="number"].sheet-coin-weight {
 	float: left;
 }
 
-/* ===== UTILITY ===== */
-.sheet-clearfix {
-	clear: both;
-}
-
-.sheet-right {
-	float: right !important;
-}
-
-.sheet-left {
-	float: left !important;
-}
-
-/* ===== TWEAKS ===== */
+/* ===== MOVES & SPELLS ===== */
 .sheet-section-moves textarea {
 	resize: vertical;
 }
@@ -375,11 +341,16 @@ input[type="number"].sheet-coin-weight {
 
 /* ===== WEAPONS ===== */
 .sheet-section-weapons input[name="attr_itemname"] {
-    width: 72%;
+    width: 58%;
     float: left;
 }
 
 .sheet-section-weapons input[name="attr_weapon_atk_dtype"] {
+	width: 15%;
+	float: left;
+}
+
+.sheet-section-weapons input[name="attr_weapon_atk_bonus"] {
 	width: 15%;
 	float: left;
 }
@@ -407,7 +378,6 @@ input[type="number"].sheet-coin-weight {
 	width: 15%;
 	float: left;
 }
-
 
 /* ===== ARMOR ===== */
 .sheet-section-armor input[name="attr_itemname"] {
@@ -439,4 +409,94 @@ input[type="number"].sheet-coin-weight {
 .sheet-section-gear input[name="attr_itemweight"] {
 	width: 15%;
 	float: left;
+}
+
+/* ===== ENCUMBERED STATUS ===== */
+.sheet-toggle-encumbered {
+    display: none;
+}
+
+.sheet-toggle-double-encumbered {
+    display: none;
+}
+
+.sheet-toggle-double-encumbered-moves-title {
+    display: none;
+}
+
+.sheet-toggle-double-encumbered-moves {
+    display: none;
+}
+
+.sheet-toggle-double-encumbered-spells-title {
+    display: none;
+}
+
+.sheet-toggle-double-encumbered-spells {
+    display: none;
+}
+
+.sheet-toggle-encumbered:not(:checked) + .sheet-hide, 
+.sheet-toggle-encumbered:checked + .sheet-show {
+    display:none;
+}
+
+.sheet-toggle-double-encumbered:not(:checked) + .sheet-hide, 
+.sheet-toggle-double-encumbered:checked + .sheet-show {
+    display:none;
+}
+
+.sheet-toggle-double-encumbered-moves-title:not(:checked) + .sheet-hide, 
+.sheet-toggle-double-encumbered-moves-title:checked + .sheet-header {
+    display:none;
+}
+
+.sheet-toggle-double-encumbered-moves:not(:checked) + .sheet-hide, 
+.sheet-toggle-double-encumbered-moves:checked + .sheet-section-moves {
+    display:none;
+}
+
+.sheet-toggle-double-encumbered-spells-title:not(:checked) + .sheet-hide, 
+.sheet-toggle-double-encumbered-spells-title:checked + .sheet-header {
+    display:none;
+}
+
+.sheet-toggle-double-encumbered-spells:not(:checked) + .sheet-hide, 
+.sheet-toggle-double-encumbered-spells:checked + .sheet-section-spells {
+    display:none;
+}
+
+input[name="attr_encumbered"] {
+    background-color: red;
+    border: 0px;
+    border-radius: 4px;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+}
+
+input[name="attr_double_encumbered"] {
+    background-color: purple;
+    border: 0px;
+    border-radius: 4px;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+}
+
+/* ===== UTILITY ===== */
+.sheet-clearfix {
+	clear: both;
+}
+
+.sheet-right {
+	float: right !important;
+}
+
+.sheet-left {
+	float: left !important;
 }
