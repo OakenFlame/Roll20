@@ -320,14 +320,14 @@ input[type="number"]:disabled {
 }
 
 input[type="number"].sheet-coin-total {
-	width: 65%;
+	width: 50%;
 	float: left;
 	text-align: center;
 }
 
 input[type="number"].sheet-coin-weight {
-	width: 15%;
-	float: left;
+	width: 15%
+	float: right;
 }
 
 /* ===== MOVES & SPELLS ===== */
@@ -341,18 +341,8 @@ input[type="number"].sheet-coin-weight {
 
 /* ===== WEAPONS ===== */
 .sheet-section-weapons input[name="attr_itemname"] {
-    width: 58%;
+    width: 85%;
     float: left;
-}
-
-.sheet-section-weapons input[name="attr_weapon_atk_dtype"] {
-	width: 15%;
-	float: left;
-}
-
-.sheet-section-weapons input[name="attr_weapon_atk_bonus"] {
-	width: 15%;
-	float: left;
 }
 
 .sheet-section-weapons button[type="roll"] {
@@ -365,49 +355,53 @@ input[type="number"].sheet-coin-weight {
     background: white;
 	border: none;
 	border-radius: 3px;
-	float: right;
-	
+	float: left;
 }
 
 .sheet-section-weapons input[name="attr_itemtags"] {
-	width: 79%;
+	width: 100%;
+	float: left;
+}
+
+.sheet-section-weapons input[name="attr_weapon_atk_dtype"] {
+	float: left;
+}
+
+.sheet-section-weapons input[name="attr_weapon_atk_bonus"] {
 	float: left;
 }
 
 .sheet-section-weapons input[name="attr_itemweight"] {
-	width: 15%;
 	float: left;
 }
 
 /* ===== ARMOR ===== */
 .sheet-section-armor input[name="attr_itemname"] {
-	width: 81%;
-	float: left;    
+	width: 95%;
 }
 
 .sheet-section-armor input[name="attr_itemarmor"] {
-	width: 15%;
 	float: left;
 }
 
 .sheet-section-armor input[name="attr_itemtags"] {
-	width: 79%;
+	width: 100%;
 	float: left;
 }
 
 .sheet-section-armor input[name="attr_itemweight"] {
-	width: 15%;
 	float: left;
 }
 
 /* ===== GEAR ===== */
+.sheet-section-gear input[name="attr_itemname"] {
+    width: 95%;
+}
 .sheet-section-gear input[name="attr_itemtags"] {
-	width: 79%;
-	float: left;
+	width: 100%;
 }
 
 .sheet-section-gear input[name="attr_itemweight"] {
-	width: 15%;
 	float: left;
 }
 
@@ -486,6 +480,16 @@ input[name="attr_double_encumbered"] {
     font-weight: bold;
     text-align: center;
     width: 100%;
+}
+
+/* ===== TOGGLE ===== */
+.sheet-toggle {
+    float: right;
+}
+
+.sheet-toggle:not(:checked) ~ .sheet-hide,
+.sheet-toggle:checked ~ .sheet-show {
+	display: none;
 }
 
 /* ===== UTILITY ===== */
