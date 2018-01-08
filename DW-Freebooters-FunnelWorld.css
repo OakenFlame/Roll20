@@ -1,6 +1,17 @@
+/* ===== GLOBALS ===== */
 .charsheet {
 	width: 830px;
 	background: white;
+}
+
+select {
+    font-size: 14px;
+    line-height: 20px; /* Places all select text centered */
+    margin: 0;
+    padding-left: 6px;
+    padding-right: 6px;
+    -webkit-appearance:none; /* Removes the gradient background in mobile */
+	width: auto;
 }
 
 textarea {
@@ -11,176 +22,124 @@ textarea {
 
 textarea, 
 input { 
-	outline: none;
 	box-shadow: none;
+	font-size: 14px;
 	margin-bottom: 1px;
+	outline: none;
 }
 
-.sheet-header textarea, 
-.sheet-header input {
-	border: none;
-}
+    /* ===== DISABLED INPUTS ===== */
+    input:disabled {
+        -webkit-text-fill-color: Silver; /* Override iOS / Android font color change */
+        -webkit-opacity: 1; /* Override iOS opacity change affecting text & background color */
+        color: Silver; /* Override IE font color change */
+    }
+    
+    input[type=number]:disabled::-webkit-inner-spin-button, 
+    input[type=number]:disabled::-webkit-outer-spin-button { 
+        -webkit-appearance: none; /* Removes spinners for number inputs */
+        margin: 0; 
+    }
+    
+    /* ===== REPEATING CONTROLS ===== */
+    .repcontainer .btn,
+    .repcontrol .btn {
+        border-radius: 0;
+        background-image: none;
+        border: none;
+    }
+    
+    /* ===== SECTION HEADERS ===== */
+    .sheet-header {
+    	background-color: #000;
+    	color: #fff;
+    	padding: 2px 0px;
+    	vertical-align: middle;
+    	line-height: 100%;
+    	height: 32px;
+    	line-height: 32px;
+    	font-size: 14px;
+    	margin: 3px 0px;
+    	border-radius: 4px;
+    	padding: 2px 2px 2px 8px;
+    }
+    
+    .sheet-header > * {
+    	float: right;
+    }
+    
+    .sheet-header .sheet-section-name {
+    	margin-right: 2px;
+    	font-weight: bold;
+    	text-align: left;
+    	float: left;
+    }
+    
+    .sheet-header input {
+    	border: none;
+    	font-weight: bold;
+    	font-size: 18px;
+    	height: 28px;
+    	line-height: 18px;
+    	margin: 2px;
+    	vertical-align: middle;
+    }
+    
+    .sheet-header input[type="text"] {
+    	width: 2.2em;
+    }
+    
+    .sheet-header input[type="number"] {
+    	width: 2.7em;
+    }
 
-input[type="number"], 
-input[type="text"] {
-	width: 100%;
-}
 
-select {
-	width: auto;
-	margin: 0;
-}
-
-input[type=number]:disabled::-webkit-inner-spin-button, 
-input[type=number]:disabled::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
-}
-
-input[disabled] {-moz-appearance: textfield}
-input[type="number"]:disabled {
-    color: Gray;
-}
-
-.repcontainer .btn,
-.repcontrol .btn {
-    border-radius: 0;
-    background-image: none;
-    border: none;
-}
-
-/* ===== LAYOUT ===== */
-.sheet-col-left {
-	float: left;
-	width: 39%;
-}
-
-.sheet-col-right {
-	float: right;
-	width: 60%;
-}
-
-/* ===== SECTION HEADERS ===== */
-.sheet-header {
-	background-color: #000;
-	color: #fff;
-	padding: 2px 0px;
-	vertical-align: middle;
-	line-height: 100%;
-	height: 32px;
-	line-height: 32px;
-	font-size: 1.1em;
-	margin: 3px 0px;
-	box-align: center;
-	border-radius: 4px;
-	padding: 2px 2px 2px 8px;
-}
-
-.sheet-header input {
-	height: 28px;
-
-	border: none;
-	vertical-align: middle;
-	font-weight: bold;
-
-	font-size: 18px;
-	line-height: 18px;
-	margin: 2px;
-}
-
-.sheet-header input[type="text"] {
-	width: 2.2em;
-}
-
-.sheet-header input[type="number"] {
-	width: 2.7em;
-}
-
-.sheet-header button[type="roll"] {
-	height: 28px;
-	width: 28px;
-	margin: 2px;
-	padding: 4px;
-	padding-top: 5px;
-
-	font-size: 20px;
-	text-align: center;
-
-	background: white;
-	border: none;
-	border-radius: 3px;
-}
-
-.sheet-header > * {
-	text-align: right;
-	float: right;
-	height: 100%;
-}
-
-.sheet-header .sheet-section-name {
-	margin-right: 2px;
-	font-weight: bold;
-	text-align: left;
-	float: left;
-}
-
-/* ===== MAIN HEADER ===== */
+/* ===== TOP BAR (NAME / CLASS) ===== */
 .sheet-topbar {
+    background-color: black;
+	border-radius: 4px;
 	height: 50px;
+	margin: 3px 0px;
 	padding: 4px 2% 4px 2%;
 }
 
-.sheet-topbar.sheet-header > input {
-	height: 100%;
-	width: 50%;
-	padding: 0;
-	margin: 0;
-
-	background-color: black;
-	color: white;
-
-	font-size: 38px;
-	line-height: 42px;
-}
-
-.sheet-topbar > .sheet-field-name {
-    height: 100%;
-	width: 50%;
-	padding: 0;
-	margin: 0;
-
-	background-color: black;
-	color: white;
-
-	font-size: 38px;
-	line-height: 42px;
-	
-	float: left;
-	text-align: left;
-}
-
-/* ===== CLASS ===== */
-.sheet-topbar > .sheet-field-class {
-	float: right;
-	text-align: right;
-	height: 100%;
-	width: 50%;
-	padding: 0;
-	margin: 0;
-
-	background-color: black;
-	color: gray;
+    /* ===== NAME ===== */
+    .sheet-char-name {
+        color: white;
+    	background-color: black;
+    	border: 0px;
+    	font-size: 38px;
+    	font-weight: bold;
+    	float: left;
+        height: 100%;
+    	margin: 0;
+    	padding: 0;
+    	text-align: left;
+    	width: 50%;
+    }
     
-	font-size: 38px;
-	font-style: italic;
-	line-height: 42px;
-}
+    /* ===== CLASS ===== */
+    .sheet-char-class {
+        color: white;
+        background-color: black;
+        border: 0px;
+        float: right;
+    	font-size: 38px;
+    	font-style: italic;
+    	font-weight: bold;
+    	height: 100%;
+    	line-height: 50px;
+    	outline: none;
+    	padding: 0;
+    	margin: 0;
+    	text-align: right;
+    }
 
 /* ===== QUICK ROLL BAR ===== */
-.sheet-header button[type="roll"] {
+.sheet-roll-bar button[type="roll"] {
 	background: white;
-	border: none;
-	border-radius: 3px;
+	border: 0px;
+	border-radius: 4px;
 	font-size: 20px;
 	height: 28px;
 	margin: 2px;
@@ -196,66 +155,96 @@ input[type="number"]:disabled {
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 18px;
     font-weight: bold;
+    margin-left: 2px;
 }
 
-/* ===== STATISTICS ===== */
+/* ===== STATISTICS (HIT DICE / ARMOR / LEVEL / XP / HP) ===== */
 .sheet-statistics {
 	width: 100%;
-	margin-left: 0.5%;
 }
 
 .sheet-statistics .sheet-header {
-	width: 18%;
-
 	float: left;
-	margin-right: 0.6%;
+	margin-right: 2px;
+	width: 18%;
 }
 
-.sheet-statistics .sheet-header:last-child {
-	margin-right: 0;
+.sheet-statistics .sheet-header input {
+    background: white;
+	text-align: center;
+	z-index: 1;
 }
+
+.sheet-statistics .sheet-header:first-child {
+	margin-left: 10px;
+}
+
+
+    /* ===== HIT DICE ===== */
+    .sheet-roll-hit-dice {
+    	background: white;
+    	border: 0px;
+    	border-radius: 4px;
+    	font-size: 20px;
+    	height: 28px;
+    	width: 28px;
+    	margin: 0px;
+    	margin-top: 2px !important;
+    	padding: 4px;
+    	padding-top: 5px;
+    	text-align: center;
+    }
 
 /* ===== ATTRIBUTES ===== */
 .sheet-attributes {
-	margin-left: 1%;
 	margin-bottom: 10px;
+	margin-left: 1%;
 }
 
 .sheet-attributes .sheet-header {
-	height: auto;
-	width: 12.65%;
 	float: left;
+	height: auto;
 	margin-right: 0.5%;
 	padding: 4px;
 	padding-bottom: 6px;
 	position: relative;
+	width: 12.65%;
 }
 
-.sheet-attributes .sheet-header > label {
-	height: 1em;
-	width: calc(90% - 8px);
-	margin: 0;
-	padding: 1px 2px;
-	margin: 0 5%;
-
-	text-transform: uppercase;
-	text-align: center;
-	font-weight: normal;
-	font-size: 12px;
-
+/* ===== STAT TOP LABEL ===== */
+.sheet-attributes .sheet-header > label.sheet-top {
 	background: white;
+	font-size: 12px;
+	font-weight: normal;
+	height: 1em;
+	margin: 0;
+	margin: 0 5%;
+	padding: 1px 2px;
+	position: absolute;
+	text-align: center;
+	text-transform: uppercase;
+	top: -5px;
 	transform: skew(-10deg); 
 	 -webkit-transform: skew(-10deg);
-
-	position: absolute;
+	width: calc(90% - 8px);
 }
 
-.sheet-attributes .sheet-header > label.sheet-top {
-	top: -5px;
-}
-
+/* ====== STAT BOTTOM LABEL ===== */
 .sheet-attributes .sheet-header > label.sheet-bottom {
+    background: white;
 	bottom: -2px;
+	font-size: 12px;
+	font-weight: normal;
+	height: 1em;
+	margin: 0;
+	margin: 0 5%;
+	padding: 1px 2px;
+	position: absolute;
+	text-align: center;
+	text-transform: uppercase;
+	transform: skew(-10deg); 
+	 -webkit-transform: skew(-10deg);
+	width: calc(90% - 8px);
 }
 
 .sheet-attributes .sheet-header input[type="number"] {
@@ -265,41 +254,144 @@ input[type="number"]:disabled {
 	z-index: 1;
 }
 
-.sheet-attributes .sheet-row-2 {
-	width: 100%;
-	height: 16px;
-	padding: 1px;
-	overflow: hidden;
-	line-height: 14px;
-	font-size: 12px;
-	text-align: center;
-	text-transform: uppercase;
-	font-weight: bold;
-}
-
-.sheet-attributes .sheet-row-2 label {
-	color: #DDD;
-	font-size: 80%;
-}
-
-.sheet-attributes .sheet-row-2 input {
-	height: 14px;
-	margin: 0;
-}
-
 .sheet-attributes .sheet-row-3 {
     margin-top: 5px;
 }
 
+/* ===== STAT MODIFIER ===== */
 .sheet-attributes .sheet-row-3 input {
     width: 100%;
 }
 
-.sheet-attributes .sheet-row-3 button {
+/* ===== STAT ROLL ===== */
+.sheet-attributes .sheet-row-3 button[type="roll"] {
+	background: white;
+	bottom: 2px;
+	border: 0px;
+	border-radius: 4px;
+	font-size: 20px;
+    height: 28px;
+	margin: 2px;
+	margin-right: 2px;
+	padding: 4px;
+	padding-top: 5px;
 	position: absolute;
 	right: 2px;
-	bottom: 2px;
+	text-align: center;
+	width: auto;
 	z-index: 1;
+}
+
+/* ===== LEFT AND RIGHT COLUMNN LAYOUT ===== */
+.sheet-col-left {
+	float: left;
+	width: 39%;
+}
+
+.sheet-col-right {
+	float: right;
+	width: 60%;
+}
+
+/* ===== LOAD ===== */
+input[name="attr_load_max"], input[name="attr_load"] {
+    background: white;
+	border: none;
+    font-weight: bold;
+    font-size: 18px;
+    height: 28px;
+    line-height: 18px;
+    margin: 2px;
+	text-align: center;
+    vertical-align: middle;
+    width: 2.7em;
+	z-index: 1;
+}
+
+/* ===== WEAPONS ===== */
+.sheet-section-weapons input[name="attr_itemname"] {
+    width: 85%;
+    float: left;
+}
+
+.sheet-section-weapons button[type="roll"] {
+    background: white;
+	border: 0px;
+	border-radius: 4px;
+	font-size: 20px;
+	height: 28px;
+	margin: 2px;
+	margin-right: 2px;
+	padding: 4px;
+	padding-top: 5px;
+	text-align: center;
+	width: auto;
+}
+
+.sheet-section-weapons input[name="attr_itemtags"] {
+	width: 100%;
+	float: left;
+}
+
+.sheet-section-weapons input[name="attr_weapon_atk_dtype"] {
+	float: left;
+}
+
+.sheet-section-weapons input[name="attr_weapon_atk_bonus"] {
+	float: left;
+}
+
+.sheet-section-weapons input[name="attr_itemweight"] {
+	float: left;
+}
+
+/* ===== SHIELD ===== */
+.sheet-section-shield input[name="attr_shieldname"] {
+	width: 95%;
+}
+
+.sheet-section-shield input[name="attr_shieldarmor"] {
+	float: left;
+}
+
+.sheet-section-shield input[name="attr_shieldtags"] {
+	width: 100%;
+	float: left;
+}
+
+.sheet-section-shield input[name="attr_shieldweight"] {
+	float: left;
+}
+
+
+/* ===== ARMOR ===== */
+.sheet-section-armor input[name="attr_itemname"] {
+	width: 95%;
+}
+
+.sheet-section-armor input[name="attr_itemarmor"] {
+	float: left;
+}
+
+.sheet-section-armor input[name="attr_itemtags"] {
+	width: 100%;
+	float: left;
+}
+
+.sheet-section-armor input[name="attr_itemweight"] {
+	float: left;
+}
+
+/* ===== GEAR ===== */
+.sheet-section-gear input[name="attr_itemname"] {
+    width: 95%;
+}
+.sheet-section-gear input[name="attr_itemtags"] {
+	width: 100%;
+}
+
+.sheet-section-gear input[name="attr_itemweight"] {
+	float: left;
 }
 
 /* ===== COINS ===== */
@@ -330,79 +422,50 @@ input[type="number"].sheet-coin-weight {
 	float: right;
 }
 
-/* ===== MOVES & SPELLS ===== */
+/* ===== ALIGNMENT ===== */
+.sheet-section-alignment input[name="attr_alignment"] {
+    width: 100%;
+}
+
+.sheet-section-alignment textarea {
+    resize: vertical;
+    width: 98%;
+}
+
+/* ===== RACE ===== */
+.sheet-section-race input[name="attr_race"] {
+    width: 100%;
+}
+
+.sheet-section-race textarea {
+    resize: vertical;
+    width: 98%;
+}
+
+/* ===== MOVES ===== */
+.sheet-section-moves input[name="attr_movename"] {
+	width: 97%;
+}
+
 .sheet-section-moves textarea {
 	resize: vertical;
+    width: 98%;
 }
-.sheet-section-moves input[name="attr_movename"],
+
+/* ===== SPELLS ===== */
 .sheet-section-spells input[name="attr_spellname"] {
-	width: 95%;
+	width: 98%;
 }
 
-/* ===== WEAPONS ===== */
-.sheet-section-weapons input[name="attr_itemname"] {
-    width: 85%;
-    float: left;
+.sheet-section-spells textarea {
+	resize: vertical;
+    width: 99%;
 }
 
-.sheet-section-weapons button[type="roll"] {
-    height: 20px;
-	width: 28px;
-	margin: 2px;
-	padding: 4px;
-	padding-top: 5px;
-	font-size: 24px;
-    background: white;
-	border: none;
-	border-radius: 3px;
-	float: left;
-}
-
-.sheet-section-weapons input[name="attr_itemtags"] {
-	width: 100%;
-	float: left;
-}
-
-.sheet-section-weapons input[name="attr_weapon_atk_dtype"] {
-	float: left;
-}
-
-.sheet-section-weapons input[name="attr_weapon_atk_bonus"] {
-	float: left;
-}
-
-.sheet-section-weapons input[name="attr_itemweight"] {
-	float: left;
-}
-
-/* ===== ARMOR ===== */
-.sheet-section-armor input[name="attr_itemname"] {
-	width: 95%;
-}
-
-.sheet-section-armor input[name="attr_itemarmor"] {
-	float: left;
-}
-
-.sheet-section-armor input[name="attr_itemtags"] {
-	width: 100%;
-	float: left;
-}
-
-.sheet-section-armor input[name="attr_itemweight"] {
-	float: left;
-}
-
-/* ===== GEAR ===== */
-.sheet-section-gear input[name="attr_itemname"] {
-    width: 95%;
-}
-.sheet-section-gear input[name="attr_itemtags"] {
-	width: 100%;
-}
-
-.sheet-section-gear input[name="attr_itemweight"] {
-	float: left;
+/* ===== NOTES ===== */
+.sheet-section-notes textarea {
+    resize: vertical; 
+    width: 99%;
 }
 
 /* ===== ENCUMBERED STATUS ===== */
@@ -464,10 +527,12 @@ input[name="attr_encumbered"] {
     background-color: red;
     border: 0px;
     border-radius: 4px;
-    color: white;
+    color: white !important;
     font-size: 14px;
     font-weight: bold;
     text-align: center;
+    -webkit-text-fill-color: White; /* Override iOS / Android font color change */
+    -webkit-opacity: 1; /* Override iOS opacity change affecting text & background color */
     width: 100%;
 }
 
@@ -475,10 +540,12 @@ input[name="attr_double_encumbered"] {
     background-color: purple;
     border: 0px;
     border-radius: 4px;
-    color: white;
+    color: White;
     font-size: 18px;
     font-weight: bold;
     text-align: center;
+    -webkit-text-fill-color: White; /* Override iOS / Android font color change */
+    -webkit-opacity: 1; /* Override iOS opacity change affecting text & background color */
     width: 100%;
 }
 

@@ -1,22 +1,28 @@
 <!-- TODO LIST
-    1. Double Encumbrance to hide damage dice for weapons.
-    -- 2. Hide / Reveal Details about Armor / Weapons / Items (like Spells and Moves).
+    -- 1. Double Encumbrance to hide damage dice for weapons. --ADD FIX FOR WHEN NOT DBL 
     2. Health Points changing color based on total. 10% left provide a visual que.
-    3. Shield Section Below Armor.
-    4. Armor rating with a / to indicate without / with shield.
+    -- 3. Shield Section Below Armor.
+    -- 4. Armor rating with a / to indicate without / with shield.
     5. Stash Section to indicate how much has been added to it.
-    6. Sheet CSS Cleanup! 
+    6. Quantities for carried items & auto weight calc for doing so
+    7. Plus and Minus roll modifiers for all rolls (except damage)
+    8. Moving items (drag n' drop) between gear sections
+    9. Stored Gear Section
 -->
 
 <!-- ===== GLOBALS ===== -->
 <input type="hidden" name="attr_calc_encumbered" value="0" />
 <input type="hidden" name="attr_calc_weapons_load" value="0" />
+<input type="hidden" name="attr_calc_shield_armortotal" "0" />
+<input type="hidden" name="attr_calc_shield_load" value="0" />
+<input type="hidden" name="attr_calc_armors_armortotal" value="0" />
 <input type="hidden" name="attr_calc_armors_load" value="0" />
 <input type="hidden" name="attr_calc_items_load" value="0" />
 
-<div class="sheet-header sheet-topbar">
-    <input class="sheet-field-name" type="text" placeholder="Name" name="attr_character_name">
-    <select class="sheet-field-class" name="attr_class">                
+<!-- ===== CHARACTER NAME & CLASS ===== -->
+<div class="sheet-topbar">
+    <input class="sheet-char-name" type="text" placeholder="Type Your Char Name" name="attr_character_name" />
+    <select class="sheet-char-class" name="attr_class">                
             <option value="Villager">Villager</option>
             <option value="Fighter">Fighter</option>
             <option value="Thief">Thief</option>
@@ -45,47 +51,47 @@
 <div class="sheet-statistics">
 	<div class="sheet-header">
 		<div class="sheet-section-name">Hit Dice</div>
-		<button type="roll" name='roll_RollHitDice' value='@{character_name} rolls [[1d@{hitdice}]] on their hit dice.'></button>
+		<button type="roll" name='roll_RollHitDice' class="sheet-roll-hit-dice" value='@{character_name} rolls [[1d@{hitdice}]] on their hit dice.'></button>
 		<input type="hidden" name="attr_calc_hitdice" value="4" />
-		<input type="number" name="attr_hitdice" value="@{calc_hitdice}" disabled="true">
+		<input type="number" name="attr_hitdice" value="@{calc_hitdice}" disabled="true" />
 	</div>
 	<div class="sheet-header">
 		<div class="sheet-section-name">Armor</div>
 		<input type="hidden" name="attr_calc_armor" value="0" />
-		<input type="number" name="attr_armor" value="@{calc_armor}" disabled="true">
+		<input type="number" name="attr_armor" value="@{calc_armor}" disabled="true" />
 	</div>
 	<div class="sheet-header">
 		<div class="sheet-section-name">Level</div>
-		<input type="number" name="attr_level" value="0">
+		<input type="number" name="attr_level" value="0" />
 	</div>
 	<div class="sheet-header">
 		<div class="sheet-section-name">XP</div>
-		<input type="number" name="attr_xp_max" value="10+(@{level}*5)" disabled="true">
+		<input type="number" name="attr_xp_max" value="10+(@{level}*5)" disabled="true" />
 		<span>/</span>	
-		<input type="number" name="attr_xp" value="0">
+		<input type="number" name="attr_xp" value="0" />
 	</div>
 	<div class="sheet-header">
 		<div class="sheet-section-name sheet-show">HP</div>
-		<input class="sheet-show" type="number" name="attr_hp_max" value="1">
+		<input class="sheet-show" type="number" name="attr_hp_max" value="1" />
 		<span class="sheet-show">/</span>	
-		<input class="sheet-show" type="number" name="attr_hp" value="1">
+		<input class="sheet-show" type="number" name="attr_hp" value="1" />
 	</div>
 	<div class="sheet-clearfix"></div>
 </div>
 
-<!-- ===== CHARACTER ===== -->
+<!-- ===== CHARACTER ATTRIBUTES ===== -->
 <div class="sheet-attributes">
 	<!-- ===== STRENGTH ===== -->
 	<div class="sheet-header">
 		<label class="sheet-top" for="attr_strength">Strength</label>
 		<div class="sheet-row-1">
-			<input type="number" name="attr_strength" value="10" min="1" max="18">
-			<input type="number" name="attr_maxstrength" value="10" min="1" max="18">
+			<input type="number" name="attr_strength" value="10" min="1" max="18" />
+			<input type="number" name="attr_maxstrength" value="10" min="1" max="18" />
 		</div>
 		<div class="sheet-row-3">
 			<input type="hidden" name="attr_calc_strength_mod" value="0" />
-			<input type="number" name="attr_strength_mod" value="@{calc_strength_mod}" disabled="true">
-			<input type="checkbox" name="attr_toggle_double_encumbered_strength" class="sheet-toggle-double-encumbered" value="1"/>
+			<input type="number" name="attr_strength_mod" value="@{calc_strength_mod}" disabled="true" />
+			<input type="checkbox" name="attr_toggle_double_encumbered_strength" class="sheet-toggle-double-encumbered" value="1" />
 			<button type="roll" name="roll_TestStrength" class="sheet-show" value="@{character_name} rolls [[2d6 + @{strength_mod} - @{calc_encumbered}]] on STR."></button>
 		</div>
 		<label class="sheet-bottom" for="attr_strength_mod">STR</label>
@@ -95,13 +101,13 @@
 	<div class="sheet-header">
 		<label class="sheet-top" for="attr_dexterity">Dexterity</label>
 		<div class="sheet-row-1">
-			<input type="number" name="attr_dexterity" value="10" min="1" max="18">
-			<input type="number" name="attr_maxdexterity" value="10" min="1" max="18">
+			<input type="number" name="attr_dexterity" value="10" min="1" max="18" />
+			<input type="number" name="attr_maxdexterity" value="10" min="1" max="18" />
 		</div>
 		<div class="sheet-row-3">
 			<input type="hidden" name="attr_calc_dexterity_mod" value="0" />
-	        <input type="number" name="attr_dexterity_mod" value="@{calc_dexterity_mod}" disabled="true">
-	        <input type="checkbox" name="attr_toggle_double_encumbered_dexterity" class="sheet-toggle-double-encumbered" value="1"/>
+	        <input type="number" name="attr_dexterity_mod" value="@{calc_dexterity_mod}" disabled="true" />
+	        <input type="checkbox" name="attr_toggle_double_encumbered_dexterity" class="sheet-toggle-double-encumbered" value="1" />
 			<button type="roll" name="roll_TestDexterity" class="sheet-show" value="@{character_name} rolls [[2d6 + @{dexterity_mod} - @{calc_encumbered}]] on DEX."></button>
 		</div>
 		<label class="sheet-bottom" for="attr_dexterity_mod">DEX</label>
@@ -112,13 +118,13 @@
 		<label class="sheet-top" for="attr_constitution">Constitution</label>
 
 		<div class="sheet-row-1">
-			<input type="number" name="attr_constitution" value="10" min="1" max="18">
-			<input type="number" name="attr_maxconstitution" value="10" min="1" max="18">
+			<input type="number" name="attr_constitution" value="10" min="1" max="18" />
+			<input type="number" name="attr_maxconstitution" value="10" min="1" max="18" />
 		</div>
 		<div class="sheet-row-3">
 		    <input type="hidden" name="attr_calc_constitution_mod" value="0" />
-			<input type="number" name="attr_constitution_mod" value="@{calc_constitution_mod}" disabled="true">
-			<input type="checkbox" name="attr_toggle_double_encumbered_constitution" class="sheet-toggle-double-encumbered" value="1"/>
+			<input type="number" name="attr_constitution_mod" value="@{calc_constitution_mod}" disabled="true" />
+			<input type="checkbox" name="attr_toggle_double_encumbered_constitution" class="sheet-toggle-double-encumbered" value="1" />
 		    <button type="roll" name="roll_TestConstitution" class="sheet-show" value="@{character_name} rolls [[2d6 + @{constitution_mod} - @{calc_encumbered}]] on CON."></button>
 		</div>
 		<label class="sheet-bottom" for="attr_constitution_mod">CON</label>
@@ -128,13 +134,13 @@
 	<div class="sheet-header">
 		<label class="sheet-top" for="attr_intelligence">Intelligence</label>
 		<div class="sheet-row-1">
-			<input type="number" name="attr_intelligence" value="10" min="1" max="18">
-			<input type="number" name="attr_maxintelligence" value="10" min="1" max="18">
+			<input type="number" name="attr_intelligence" value="10" min="1" max="18" />
+			<input type="number" name="attr_maxintelligence" value="10" min="1" max="18" />
 		</div>
 		<div class="sheet-row-3">
 			<input type="hidden" name="attr_calc_intelligence_mod" value="0" />
-			<input type="number" name="attr_intelligence_mod" value="@{calc_intelligence_mod}" disabled="true">
-			<input type="checkbox" name="attr_toggle_double_encumbered_intelligence" class="sheet-toggle-double-encumbered" value="1"/>
+			<input type="number" name="attr_intelligence_mod" value="@{calc_intelligence_mod}" disabled="true" />
+			<input type="checkbox" name="attr_toggle_double_encumbered_intelligence" class="sheet-toggle-double-encumbered" value="1" />
             <button type="roll" name="roll_TestIntelligence" class="sheet-show" value="@{character_name} rolls [[2d6 + @{intelligence_mod} - @{calc_encumbered}]] on INT."></button>
 		</div>
 		<label class="sheet-bottom" for="attr_intelligence_mod">INT</label>
@@ -144,13 +150,13 @@
 	<div class="sheet-header">
 		<label class="sheet-top" for="attr_wisdom">Wisdom</label>
 		<div class="sheet-row-1">
-			<input type="number" name="attr_wisdom" value="10" min="1" max="18">
-			<input type="number" name="attr_maxwisdom" value="10" min="1" max="18">
+			<input type="number" name="attr_wisdom" value="10" min="1" max="18" />
+			<input type="number" name="attr_maxwisdom" value="10" min="1" max="18" />
 		</div>
 		<div class="sheet-row-3">
             <input type="hidden" name="attr_calc_wisdom_mod" value="0" />
-			<input type="number" name="attr_wisdom_mod" value="@{calc_wisdom_mod}" disabled="true">
-			<input type="checkbox" name="attr_toggle_double_encumbered_wisdom" class="sheet-toggle-double-encumbered" value="1"/>
+			<input type="number" name="attr_wisdom_mod" value="@{calc_wisdom_mod}" disabled="true" />
+			<input type="checkbox" name="attr_toggle_double_encumbered_wisdom" class="sheet-toggle-double-encumbered" value="1" />
 			<button type="roll" name="roll_TestWisdom" class="sheet-show" value="@{character_name} rolls [[2d6 + @{wisdom_mod} - @{calc_encumbered}]] on WIS."></button>
 		</div>
 		<label class="sheet-bottom" for="attr_wisdom_mod">WIS</label>
@@ -160,13 +166,13 @@
 	<div class="sheet-header">
 		<label class="sheet-top" for="attr_charisma">Charisma</label>
 		<div class="sheet-row-1">
-			<input type="number" name="attr_charisma" value="10" min="1" max="18">
-			<input type="number" name="attr_maxcharisma" value="10" min="1" max="18">
+			<input type="number" name="attr_charisma" value="10" min="1" max="18" />
+			<input type="number" name="attr_maxcharisma" value="10" min="1" max="18" />
 		</div>
 		<div class="sheet-row-3">
             <input type="hidden" name="attr_calc_charisma_mod" value="0" />
-            <input type="number" name="attr_charisma_mod" value="@{calc_charisma_mod}" disabled="true">
-            <input type="checkbox" name="attr_toggle_double_encumbered_charisma" class="sheet-toggle-double-encumbered" value="1"/>
+            <input type="number" name="attr_charisma_mod" value="@{calc_charisma_mod}" disabled="true" />
+            <input type="checkbox" name="attr_toggle_double_encumbered_charisma" class="sheet-toggle-double-encumbered" value="1" />
             <button type="roll" name="roll_TestCharisma" class="sheet-show" value="@{character_name} rolls [[2d6 + @{charisma_mod} - @{calc_encumbered}]] on CHA."></button>
 		</div>
 		<label class="sheet-bottom" for="attr_charisma_mod">CHA</label>
@@ -176,13 +182,13 @@
 	<div class="sheet-header">
 		<label class="sheet-top" for="attr_luck">Luck</label>
 		<div class="sheet-row-1">
-			<input type="number" name="attr_luck" value="10" min="1" max="18">
-			<input type="number" name="attr_maxluck" value="10" min="1" max="18">
+			<input type="number" name="attr_luck" value="10" min="1" max="18" />
+			<input type="number" name="attr_maxluck" value="10" min="1" max="18" />
 		</div>
 		<div class="sheet-row-3">
             <input type="hidden" name="attr_calc_luck_mod" value="0" />
-			<input type="number" name="attr_luck_mod" value="@{calc_luck_mod}" disabled="true">
-			<input type="checkbox" name="attr_toggle_double_encumbered_luck" class="sheet-toggle-double-encumbered" value="1"/>
+			<input type="number" name="attr_luck_mod" value="@{calc_luck_mod}" disabled="true" />
+			<input type="checkbox" name="attr_toggle_double_encumbered_luck" class="sheet-toggle-double-encumbered" value="1" />
             <button type="roll" name="roll_TestLuck" class="sheet-show" value="@{character_name} rolls [[2d6 + @{luck_mod} - @{calc_encumbered}]] on LUC."></button>
 		</div>
 		<label class="sheet-bottom" for="attr_luck_mod">LUC</label>
@@ -192,18 +198,17 @@
 
 <div class="sheet-col-left">
     <!-- ===== LOAD ===== -->
-	<div class="sheet-header">
-		<div class="sheet-section-name">Load</div>
-		<input class="sheet-show" type="number" name="attr_load_max" value="@{hitdice} + @{strength_mod}" disabled="true">
-		<span class="sheet-show">/</span>
-		<input type="hidden" name="attr_calc_load" value="0" />
-		<input type="number" class="load-count" name="attr_load" value="@{calc_load}" disabled="true" />
-	</div>
-
-	<input class="sheet-toggle-encumbered" type="checkbox" name="attr_toggle_encumbered" value="1" />
-	<input type="text" name="attr_encumbered" class="sheet-hide" value="ENCUMBERED!" disabled="true"/>
-	<input class="sheet-toggle-double-encumbered" type="checkbox" name="attr_toggle_double_encumbered" value="1" />
-	<input type="text" name="attr_double_encumbered" class="sheet-hide" value="DOUBLE ENCUMBERED!!!" disabled="true"/>
+    <div class="sheet-header">
+        <div class="sheet-section-name">Load</div>
+    	<input class="sheet-show" type="number" name="attr_load_max" value="@{hitdice} + @{strength_mod}" disabled="true">
+    	<span class="sheet-show">/</span>
+    	<input type="hidden" name="attr_calc_load" value="0" />
+    	<input type="number" class="load-count" name="attr_load" value="@{calc_load}" disabled="true" />
+    </div>
+    <input class="sheet-toggle-encumbered" type="checkbox" name="attr_toggle_encumbered" value="1" />
+    <input type="text" name="attr_encumbered" class="sheet-hide" value="ENCUMBERED!" disabled="true" />
+    <input class="sheet-toggle-double-encumbered" type="checkbox" name="attr_toggle_double_encumbered" value="1" />
+    <input type="text" name="attr_double_encumbered" class="sheet-hide" value="DOUBLE ENCUMBERED!!!" disabled="true" />
 	
 	<!-- ===== WEAPONS ===== -->
 	<div class="sheet-header">
@@ -211,9 +216,9 @@
 	</div>
 	<div class="sheet-section-weapons">
 		<fieldset class="repeating_weapons">
-			<input name="attr_itemname" type="text" placeholder="Name">
-			<input type="hidden" name="attr_test" value="0"/>
-		    <input type="checkbox" name="attr_toggle_double_encumbered_roll_weapon_damage" class="sheet-toggle-double-encumbered" value="1"/>
+			<input name="attr_itemname" type="text" placeholder="Name" />
+			<input type="hidden" name="attr_test" value="0" />
+		    <input type="checkbox" name="attr_toggle_double_encumbered_roll_weapon_damage" class="sheet-toggle-double-encumbered" value="1" />
 		    <button type='roll' name="roll_WeaponDamage" class="sheet-show" value="@{character_name} attacks with @{itemname} and rolls a [[1d@{weapon_atk_dtype} + @{weapon_atk_bonus}]]."></button>
             <input type="checkbox" class="sheet-toggle" title="show/hide" name="attr_weapon-show" value="1" />
             <div class="sheet-hide">
@@ -257,16 +262,59 @@
     	</fieldset>
 	</div>
 
+    <!-- ===== SHIELD ===== -->
+	<div class="sheet-header">
+		<div class="sheet-section-name">Equipped Shield</div>
+	</div>
+	<div class="sheet-section-shield">
+		<input name="attr_shieldname" type="text" placeholder="Name" />
+        <input type="checkbox" class="sheet-toggle" title="show/hide" name="attr_shield-show" value="1" />
+		<div class="sheet-hide">
+    		<input name="attr_shieldtags" type="text" placeholder="Tags" />
+            <div class="sheet-clearfix"></div>
+			Armor Rating:			
+    		<select name="attr_shieldarmor">                
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+            </select>
+            Weight:
+    		<select name="attr_shieldweight">                
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+            </select>
+            <div class="sheet-clearfix"></div>
+            <input type="checkbox" name="attr_shield_damaged" value="1">Damaged</input>
+            <div class="sheet-clearfix"></div>
+        </div>
+        <input type="checkbox" name="attr_shield_equipped" value="1">Equipped</input>
+	</div>
+
 	<!-- ===== ARMOR ===== -->
 	<div class="sheet-header">
 		<div class="sheet-section-name">Equipped Armor</div>
 	</div>
 	<div class="sheet-section-armor">
 		<fieldset class="repeating_armors">
-			<input name="attr_itemname" type="text" placeholder="Name">
+			<input name="attr_itemname" type="text" placeholder="Name" />
             <input type="checkbox" class="sheet-toggle" title="show/hide" name="attr_armor-show" value="1" />
 			<div class="sheet-hide">
-    			<input name="attr_itemtags" type="text" placeholder="Tags">
+    			<input name="attr_itemtags" type="text" placeholder="Tags" />
                 <div class="sheet-clearfix"></div>
 			    Armor Rating:			
     			<select name="attr_itemarmor">                
@@ -307,10 +355,10 @@
 	</div>
 	<div class="sheet-section-gear">
 		<fieldset class="repeating_items">
-			<input name="attr_itemname" type="text" placeholder="Name">
+			<input name="attr_itemname" type="text" placeholder="Name" />
 			<input type="checkbox" class="sheet-toggle" title="show/hide" name="attr_item-show" value="1" />
 			<div class="sheet-hide">  
-    			<input name="attr_itemtags" type="text" placeholder="Tags">
+    			<input name="attr_itemtags" type="text" placeholder="Tags" />
                 <div class="sheet-clearfix"></div>
     			Weight:
     			<select name="attr_itemweight">                
@@ -337,16 +385,16 @@
 	</div>
 	<div class="sheet-section-coins">
         <span>Silver</span>
-    	<input type="number" class="sheet-coin-total" name="attr_silver_total" placeholder="Total Silver Coins" title="Total Silver Coins" value="0" min="0">
+    	<input type="number" class="sheet-coin-total" name="attr_silver_total" placeholder="Total Silver Coins" title="Total Silver Coins" value="0" min="0" />
         Weight:
         <input type="hidden" name="attr_calc_silver_weight" value="0" />
 		<input type="number" class="sheet-coin-weight" name="attr_silver_weight" placeholder="Wgt" value="@{calc_silver_weight}" disabled="true">
         <div class="sheet-clearfix"></div>
 		<span>Gold</span>
-		<input type="number" class="sheet-coin-total" name="attr_gold_total" placeholder="Total Gold Coins" title="Total Gold Coins" value="0" min="0">
+		<input type="number" class="sheet-coin-total" name="attr_gold_total" placeholder="Total Gold Coins" title="Total Gold Coins" value="0" min="0" />
 		Weight:
 		<input type="hidden" name="attr_calc_gold_weight" value="0" />
-		<input type="number" class="sheet-coin-weight" name="attr_gold_weight" placeholder="Wgt" value="@{calc_gold_weight}" disabled="true">
+		<input type="number" class="sheet-coin-weight" name="attr_gold_weight" placeholder="Wgt" value="@{calc_gold_weight}" disabled="true" />
 	</div>
 </div>
 
@@ -356,7 +404,7 @@
 		<div class="sheet-section-name">Alignment</div>
 	</div>
 	<div class="sheet-section-alignment">
-		<input type="text" name="attr_alignment" placeholder="Name">
+		<input type="text" name="attr_alignment" placeholder="Name" />
 		<br>
 		<textarea name="attr_alignment_goal" placeholder="Move"></textarea>
 	</div>
@@ -366,17 +414,17 @@
 		<div class="sheet-section-name">Race</div>
 	</div>
 	<div class="sheet-section-race">
-		<input type="text" name="attr_race" placeholder="Name">
+		<input type="text" name="attr_race" placeholder="Name" />
 		<br>
 		<textarea name="attr_race_bonus" placeholder="Move"></textarea>
 	</div>
 	
 	<!-- ===== MOVES ===== -->
-    <input type="checkbox" name="attr_toggle_double_encumbered_moves_title" class="sheet-toggle-double-encumbered-moves-title" value="1"/>
+    <input type="checkbox" name="attr_toggle_double_encumbered_moves_title" class="sheet-toggle-double-encumbered-moves-title" value="1" />
 	<div class="sheet-header">
 		<div class="sheet-section-name">Moves</div>
 	</div>
-	<input type="checkbox" name="attr_toggle_double_encumbered_moves" class="sheet-toggle-double-encumbered-moves" value="1"/>
+	<input type="checkbox" name="attr_toggle_double_encumbered_moves" class="sheet-toggle-double-encumbered-moves" value="1" />
 	<div class="sheet-section-moves">
 		<fieldset class="repeating_moves">
 			<input type="text" name="attr_movename" placeholder="Move Name">
@@ -387,7 +435,6 @@
 </div>
 
 <div class="sheet-clearfix"></div>
-<br>
 
 <!-- ===== SPELLS ===== -->
 <input type="checkbox" name="attr_toggle_double_encumbered_spells_title" class="sheet-toggle-double-encumbered-spells-title" value="1"/>
@@ -403,6 +450,7 @@
 	</fieldset>
 </div>
 
+<!-- ===== NOTES ===== -->
 <div class="sheet-header">
 		<div class="sheet-section-name">Notes</div>
 	</div>
@@ -527,10 +575,10 @@ var calculateMod = function(attribute) {
 
 //TOTAL LOAD CALCULATION & EVENT HANDLER
 //Calculates the total weight carried by all weapons, armors, and items
-on("change:calc_weapons_load change:calc_armors_load change:calc_items_load change:calc_silver_weight change:calc_gold_weight", function() {
-    getAttrs(["calc_weapons_load", "calc_armors_load", "calc_items_load", "calc_silver_weight", "calc_gold_weight"], function(values) {
+on("change:calc_weapons_load change:calc_shield_load change:calc_armors_load change:calc_items_load change:calc_silver_weight change:calc_gold_weight", function() {
+    getAttrs(["calc_weapons_load", "calc_shield_load", "calc_armors_load", "calc_items_load", "calc_silver_weight", "calc_gold_weight"], function(values) {
 		setAttrs({
-		    calc_load: Number(values.calc_weapons_load) + Number(values.calc_armors_load) + Number(values.calc_items_load) + Number(values.calc_silver_weight) + Number(values.calc_gold_weight)
+		    calc_load: Number(values.calc_weapons_load) + Number(values.calc_shield_load) + Number(values.calc_armors_load) + Number(values.calc_items_load) + Number(values.calc_silver_weight) + Number(values.calc_gold_weight)
 		});
 	});
 });
@@ -543,6 +591,22 @@ on("change:calc_load", function() {
         var maximumLoad = Number(values.calc_hitdice) + Number(values.calc_strength_mod);
 
 		if (currentLoad >= (maximumLoad * 2)) {
+            getSectionIDs("repeating_weapons", function(rowIds) {
+                var toggles = [],
+            	setObj = {};
+            
+                for(var i=0; i < rowIds.length; i++) {
+                    toggles.push("repeating_weapons_" + rowIds[i] + "_toggle_double_encumbered_roll_weapon_damage");
+                }
+            
+                getAttrs(toggles, function(values) {
+            	_.each(_.keys(values),(k)=>{
+            		setObj[k]=1;
+            	});
+                    setAttrs(setObj);
+                });
+            }); 
+
             setAttrs({
                 calc_encumbered: Number(1),
 			    toggle_encumbered: Number(0),
@@ -561,6 +625,22 @@ on("change:calc_load", function() {
 		    });
         }
         else if ((currentLoad >= maximumLoad) && (currentLoad < (maximumLoad * 2))) {
+            getSectionIDs("repeating_weapons", function(rowIds) {
+                var toggles = [],
+            	setObj = {};
+            
+                for(var i=0; i < rowIds.length; i++) {
+                    toggles.push("repeating_weapons_" + rowIds[i] + "_toggle_double_encumbered_roll_weapon_damage");
+                }
+            
+                getAttrs(toggles, function(values) {
+            	_.each(_.keys(values),(k)=>{
+            		setObj[k]=0;
+            	});
+                    setAttrs(setObj);
+                });
+            }); 
+            
             setAttrs({
                 calc_encumbered: Number(1),
                 toggle_encumbered: Number(1),
@@ -579,6 +659,22 @@ on("change:calc_load", function() {
 		    });
         }
         else if (currentLoad < maximumLoad) {
+            getSectionIDs("repeating_weapons", function(rowIds) {
+                var toggles = [],
+            	setObj = {};
+            
+                for(var i=0; i < rowIds.length; i++) {
+                    toggles.push("repeating_weapons_" + rowIds[i] + "_toggle_double_encumbered_roll_weapon_damage");
+                }
+            
+                getAttrs(toggles, function(values) {
+            	_.each(_.keys(values),(k)=>{
+            		setObj[k]=0;
+            	});
+                    setAttrs(setObj);
+                });
+            }); 
+            
             setAttrs({
                 calc_encumbered: Number(0),
                 toggle_encumbered: Number(0),
@@ -604,8 +700,7 @@ on("change:calc_load", function() {
 on("change:silver_total", function() {
     getAttrs(["silver_total"], function(values) {
 		setAttrs({
-			calc_silver_weight: Math.floor(parseInt(values.silver_total) / 100),
-			toggle_encumbered: Number(1)
+			calc_silver_weight: Math.floor(parseInt(values.silver_total) / 100)
 		});
 	});
 });
@@ -620,8 +715,34 @@ on("change:gold_total", function() {
 	});
 });
 
-//ARMOR RATING CHANGE EVENT HANDLER
-//Calculates the total armor rating of all armor worn by the character
+//TOTAL ARMOR CALCULATION & EVENT HANDLER
+//Calculates the total armor rating of all armors and shield
+on("change:calc_armors_armortotal change:calc_shield_armortotal", function() {
+    getAttrs(["calc_armors_armortotal", "calc_shield_armortotal"], function(values) {
+		setAttrs({
+		    calc_armor: Number(values.calc_armors_armortotal) + Number(values.calc_shield_armortotal)
+		});
+	});
+});
+
+//SHIELD CHANGE EVENT HANDLER
+//Calculates the total armor rating with the shield equipped by the character
+on("change:shieldarmor change:shield_equipped", function() {
+    getAttrs(["shield_equipped", "shieldarmor"], function(values) {
+        var shieldArmor = 0;
+	    
+    	if (values.shield_equipped == 1) {
+            shieldArmor = Number(values.shieldarmor);
+        }
+    	
+        setAttrs({
+            calc_shield_armortotal: shieldArmor
+        }); 
+    });
+});
+
+//ARMOR CHANGE EVENT HANDLER
+//Calculates the total armor rating of all armor equipped by the character
 on("change:repeating_armors:itemarmor remove:repeating_armors", function() {
     getSectionIDs("repeating_armors", function(rowIds) {
 		var armorValues = [];
@@ -635,12 +756,11 @@ on("change:repeating_armors:itemarmor remove:repeating_armors", function() {
 			
 			_.each(values, function(armorRating, attrName) {
 				totalArmorRating = totalArmorRating + Number(armorRating);
-				
 			});
 			
-			setAttrs({
-				calc_armor: totalArmorRating
-			});
+		    setAttrs({
+		        calc_armors_armortotal: totalArmorRating
+		    });
 		});
 	});
 });
@@ -665,6 +785,16 @@ on("change:repeating_weapons:itemweight remove:repeating_weapons", function() {
     		setAttrs({
     		    calc_weapons_load: totalWeaponWeight
     	    });
+		});
+	});
+});
+
+//SHIELD WEIGHT CHANGE EVENT HANDLER
+//Calculates the total weight of the shield being carried
+on("change:shieldweight", function() {
+    getAttrs(["shieldweight"], function(values) {
+		setAttrs({
+			calc_shield_load: Number(values.shieldweight)
 		});
 	});
 });
