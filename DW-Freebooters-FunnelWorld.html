@@ -123,7 +123,7 @@
 			<input type="hidden" name="attr_calc_strength_mod" value="0" />
 			<input type="number" name="attr_strength_mod" value="@{calc_strength_mod}" disabled="true" />
 			<input type="checkbox" name="attr_toggle_double_encumbered_strength" class="sheet-toggle-double-encumbered" value="1" />
-			<button type="roll" name="roll_TestStrength" class="sheet-show" value="@{character_name} rolls [[2d6 + @{strength_mod} - @{calc_encumbered} + @{calc_next_roll_mod} + @{calc_ongoing_roll_mod}]] on STR."></button>
+			<button type="roll" name="roll_TestStrength" class="sheet-show" value="@{character_name} rolls [[2d6 + @{strength_mod} - @{calc_encumbered} + @{calc_next_roll_mod} + @{calc_ongoing_roll_mod}]] on STR. Total = Dice Roll + STR Modifier: @{strength_mod} - Any Encumbrance: @{calc_encumbered} + Any Forward Bonus: @{calc_next_roll_mod} + Any On-Going Bonus: @{calc_ongoing_roll_mod}"></button>
 		</div>
 		<label class="sheet-bottom" for="attr_strength_mod">STR</label>
 	</div>
@@ -138,7 +138,7 @@
 			<input type="hidden" name="attr_calc_dexterity_mod" value="0" />
 	        <input type="number" name="attr_dexterity_mod" value="@{calc_dexterity_mod}" disabled="true" />
 	        <input type="checkbox" name="attr_toggle_double_encumbered_dexterity" class="sheet-toggle-double-encumbered" value="1" />
-			<button type="roll" name="roll_TestDexterity" class="sheet-show" value="@{character_name} rolls [[2d6 + @{dexterity_mod} - @{calc_encumbered} + @{calc_next_roll_mod} + @{calc_ongoing_roll_mod}]] on DEX."></button>
+			<button type="roll" name="roll_TestDexterity" class="sheet-show" value="@{character_name} rolls [[2d6 + @{dexterity_mod} - @{calc_encumbered} + @{calc_next_roll_mod} + @{calc_ongoing_roll_mod}]] on DEX. Total = Dice Roll + DEX Modifier: @{dexterity_mod} - Any Encumbrance: @{calc_encumbered} + Any Forward Bonus: @{calc_next_roll_mod} + Any On-Going Bonus: @{calc_ongoing_roll_mod}"></button>
 		</div>
 		<label class="sheet-bottom" for="attr_dexterity_mod">DEX</label>
 	</div>
@@ -155,7 +155,7 @@
 		    <input type="hidden" name="attr_calc_constitution_mod" value="0" />
 			<input type="number" name="attr_constitution_mod" value="@{calc_constitution_mod}" disabled="true" />
 			<input type="checkbox" name="attr_toggle_double_encumbered_constitution" class="sheet-toggle-double-encumbered" value="1" />
-		    <button type="roll" name="roll_TestConstitution" class="sheet-show" value="@{character_name} rolls [[2d6 + @{constitution_mod} - @{calc_encumbered} + @{calc_next_roll_mod} + @{calc_ongoing_roll_mod}]] on CON."></button>
+		    <button type="roll" name="roll_TestConstitution" class="sheet-show" value="@{character_name} rolls [[2d6 + @{constitution_mod} - @{calc_encumbered} + @{calc_next_roll_mod} + @{calc_ongoing_roll_mod}]] on CON. Total = Dice Roll + CON Modifier: @{constitution_mod} - Any Encumbrance: @{calc_encumbered} + Any Forward Bonus: @{calc_next_roll_mod} + Any On-Going Bonus: @{calc_ongoing_roll_mod}"></button>
 		</div>
 		<label class="sheet-bottom" for="attr_constitution_mod">CON</label>
 	</div>
@@ -171,7 +171,7 @@
 			<input type="hidden" name="attr_calc_intelligence_mod" value="0" />
 			<input type="number" name="attr_intelligence_mod" value="@{calc_intelligence_mod}" disabled="true" />
 			<input type="checkbox" name="attr_toggle_double_encumbered_intelligence" class="sheet-toggle-double-encumbered" value="1" />
-            <button type="roll" name="roll_TestIntelligence" class="sheet-show" value="@{character_name} rolls [[2d6 + @{intelligence_mod} - @{calc_encumbered} + @{calc_next_roll_mod} + @{calc_ongoing_roll_mod}]] on INT."></button>
+            <button type="roll" name="roll_TestIntelligence" class="sheet-show" value="@{character_name} rolls [[2d6 + @{intelligence_mod} - @{calc_encumbered} + @{calc_next_roll_mod} + @{calc_ongoing_roll_mod}]] on INT. Total = Dice Roll + INT Modifier: @{intelligence_mod} - Any Encumbrance: @{calc_encumbered} + Any Forward Bonus: @{calc_next_roll_mod} + Any On-Going Bonus: @{calc_ongoing_roll_mod}"></button>
 		</div>
 		<label class="sheet-bottom" for="attr_intelligence_mod">INT</label>
 	</div>
@@ -187,7 +187,7 @@
             <input type="hidden" name="attr_calc_wisdom_mod" value="0" />
 			<input type="number" name="attr_wisdom_mod" value="@{calc_wisdom_mod}" disabled="true" />
 			<input type="checkbox" name="attr_toggle_double_encumbered_wisdom" class="sheet-toggle-double-encumbered" value="1" />
-			<button type="roll" name="roll_TestWisdom" class="sheet-show" value="@{character_name} rolls [[2d6 + @{wisdom_mod} - @{calc_encumbered} + @{calc_next_roll_mod} + @{calc_ongoing_roll_mod}]] on WIS."></button>
+			<button type="roll" name="roll_TestWisdom" class="sheet-show" value="@{character_name} rolls [[2d6 + @{wisdom_mod} - @{calc_encumbered} + @{calc_next_roll_mod} + @{calc_ongoing_roll_mod}]] on WIS. Total = Dice Roll + WIS Modifier: @{wisdom_mod} - Any Encumbrance: @{calc_encumbered} + Any Forward Bonus: @{calc_next_roll_mod} + Any On-Going Bonus: @{calc_ongoing_roll_mod}"></button>
 		</div>
 		<label class="sheet-bottom" for="attr_wisdom_mod">WIS</label>
 	</div>
@@ -203,7 +203,7 @@
             <input type="hidden" name="attr_calc_charisma_mod" value="0" />
             <input type="number" name="attr_charisma_mod" value="@{calc_charisma_mod}" disabled="true" />
             <input type="checkbox" name="attr_toggle_double_encumbered_charisma" class="sheet-toggle-double-encumbered" value="1" />
-            <button type="roll" name="roll_TestCharisma" class="sheet-show" value="@{character_name} rolls [[2d6 + @{charisma_mod} - @{calc_encumbered} + @{calc_next_roll_mod} + @{calc_ongoing_roll_mod}]] on CHA."></button>
+            <button type="roll" name="roll_TestCharisma" class="sheet-show" value="@{character_name} rolls [[2d6 + @{charisma_mod} - @{calc_encumbered} + @{calc_next_roll_mod} + @{calc_ongoing_roll_mod}]] on CHA. Total = Dice Roll + CHA Modifier: @{charisma_mod} - Any Encumbrance: @{calc_encumbered} + Any Forward Bonus: @{calc_next_roll_mod} + Any On-Going Bonus: @{calc_ongoing_roll_mod}"></button>
 		</div>
 		<label class="sheet-bottom" for="attr_charisma_mod">CHA</label>
 	</div>
@@ -219,7 +219,7 @@
             <input type="hidden" name="attr_calc_luck_mod" value="0" />
 			<input type="number" name="attr_luck_mod" value="@{calc_luck_mod}" disabled="true" />
 			<input type="checkbox" name="attr_toggle_double_encumbered_luck" class="sheet-toggle-double-encumbered" value="1" />
-            <button type="roll" name="roll_TestLuck" class="sheet-show" value="@{character_name} rolls [[2d6 + @{luck_mod} - @{calc_encumbered} + @{calc_next_roll_mod} + @{calc_ongoing_roll_mod}]] on LUC."></button>
+            <button type="roll" name="roll_TestLuck" class="sheet-show" value="@{character_name} rolls [[2d6 + @{luck_mod} - @{calc_encumbered} + @{calc_next_roll_mod} + @{calc_ongoing_roll_mod}]] on LUC. Total = Dice Roll + LUC Modifier: @{luck_mod} - Any Encumbrance: @{calc_encumbered} + Any Forward Bonus: @{calc_next_roll_mod} + Any On-Going Bonus: @{calc_ongoing_roll_mod}"></button>
 		</div>
 		<label class="sheet-bottom" for="attr_luck_mod">LUC</label>
 	</div>
