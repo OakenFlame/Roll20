@@ -1,16 +1,14 @@
 <!-- TODO LIST
-    -- 1. Double Encumbrance to hide damage dice for weapons. --ADD FIX FOR WHEN NOT DBL 
-    2. Health Points changing color based on total. 10% left provide a visual que.
-    -- 3. Shield Section Below Armor.
-    -- 4. Armor rating with a / to indicate without / with shield.
-    5. Stash Section to indicate how much has been added to it.
-    6. Quantities for carried items & auto weight calc for doing so
-    7. Plus and Minus roll modifiers for all rolls (except damage)
-    8. Moving items (drag n' drop) between gear sections
-    9. Stored Gear Section
+    1. Stash Section to indicate how much has been added to it.
+    2. Quantities for carried items & auto weight calc for doing so
+    3. Moving items (drag n' drop) between gear sections
+    4. Stored Gear Section
+    5. API Script for setting next roll & on-going values from the GM side.
 -->
 
 <!-- ===== GLOBALS ===== -->
+<input type="hidden" name="attr_calc_next_roll_mod" value="0" />
+<input type="hidden" name="attr_calc_ongoing_roll_mod" value="0" />
 <input type="hidden" name="attr_calc_encumbered" value="0" />
 <input type="hidden" name="attr_calc_weapons_load" value="0" />
 <input type="hidden" name="attr_calc_shield_armortotal" "0" />
@@ -46,6 +44,39 @@
 	</div>
 </div>
 <div class="sheet-clearfix"></div>
+
+<!-- ===== ROLL MODIFIERS ===== -->
+<div class="sheet-roll-modifiers">
+    <div class="sheet-header">
+        <div class="sheet-section-name">Roll Modifiers</div>
+        <div class="sheet-rollmod-toggles">
+			<select name="attr_rollmods_next_roll_value" >                
+                <option value="3">+3</option>
+                <option value="2">+2</option>
+                <option value="1" selected="selected">+1</option>
+                <option value="-1">-1</option>
+                <option value="-2">-2</option>
+                <option value="-3">-3</option>
+            </select>
+			<label>
+				<input type="checkbox" class="roll-plusone" name="attr_rollmods_next_roll" value="1">
+				<span>Next Roll</span>
+			</label>
+			<select name="attr_rollmods_ongoing_value">                
+                <option value="3">+3</option>
+                <option value="2">+2</option>
+                <option value="1" selected="selected">+1</option>
+                <option value="-1">-1</option>
+                <option value="-2">-2</option>
+                <option value="-3">-3</option>
+            </select>
+			<label>
+				<input type="checkbox" class="roll-plusone" name="attr_rollmods_ongoing" value="1">
+				<span>On-Going</span>
+			</label>
+		</div>
+    </div>
+</div>
 
 <!-- ===== CHARACTER STATS ===== -->
 <div class="sheet-statistics">
@@ -92,11 +123,10 @@
 			<input type="hidden" name="attr_calc_strength_mod" value="0" />
 			<input type="number" name="attr_strength_mod" value="@{calc_strength_mod}" disabled="true" />
 			<input type="checkbox" name="attr_toggle_double_encumbered_strength" class="sheet-toggle-double-encumbered" value="1" />
-			<button type="roll" name="roll_TestStrength" class="sheet-show" value="@{character_name} rolls [[2d6 + @{strength_mod} - @{calc_encumbered}]] on STR."></button>
+			<button type="roll" name="roll_TestStrength" class="sheet-show" value="@{character_name} rolls [[2d6 + @{strength_mod} - @{calc_encumbered} + @{calc_next_roll_mod} + @{calc_ongoing_roll_mod}]] on STR."></button>
 		</div>
 		<label class="sheet-bottom" for="attr_strength_mod">STR</label>
 	</div>
-	
 	<!-- ===== DEXTERITY ===== -->
 	<div class="sheet-header">
 		<label class="sheet-top" for="attr_dexterity">Dexterity</label>
@@ -108,7 +138,7 @@
 			<input type="hidden" name="attr_calc_dexterity_mod" value="0" />
 	        <input type="number" name="attr_dexterity_mod" value="@{calc_dexterity_mod}" disabled="true" />
 	        <input type="checkbox" name="attr_toggle_double_encumbered_dexterity" class="sheet-toggle-double-encumbered" value="1" />
-			<button type="roll" name="roll_TestDexterity" class="sheet-show" value="@{character_name} rolls [[2d6 + @{dexterity_mod} - @{calc_encumbered}]] on DEX."></button>
+			<button type="roll" name="roll_TestDexterity" class="sheet-show" value="@{character_name} rolls [[2d6 + @{dexterity_mod} - @{calc_encumbered} + @{calc_next_roll_mod} + @{calc_ongoing_roll_mod}]] on DEX."></button>
 		</div>
 		<label class="sheet-bottom" for="attr_dexterity_mod">DEX</label>
 	</div>
@@ -125,7 +155,7 @@
 		    <input type="hidden" name="attr_calc_constitution_mod" value="0" />
 			<input type="number" name="attr_constitution_mod" value="@{calc_constitution_mod}" disabled="true" />
 			<input type="checkbox" name="attr_toggle_double_encumbered_constitution" class="sheet-toggle-double-encumbered" value="1" />
-		    <button type="roll" name="roll_TestConstitution" class="sheet-show" value="@{character_name} rolls [[2d6 + @{constitution_mod} - @{calc_encumbered}]] on CON."></button>
+		    <button type="roll" name="roll_TestConstitution" class="sheet-show" value="@{character_name} rolls [[2d6 + @{constitution_mod} - @{calc_encumbered} + @{calc_next_roll_mod} + @{calc_ongoing_roll_mod}]] on CON."></button>
 		</div>
 		<label class="sheet-bottom" for="attr_constitution_mod">CON</label>
 	</div>
@@ -141,7 +171,7 @@
 			<input type="hidden" name="attr_calc_intelligence_mod" value="0" />
 			<input type="number" name="attr_intelligence_mod" value="@{calc_intelligence_mod}" disabled="true" />
 			<input type="checkbox" name="attr_toggle_double_encumbered_intelligence" class="sheet-toggle-double-encumbered" value="1" />
-            <button type="roll" name="roll_TestIntelligence" class="sheet-show" value="@{character_name} rolls [[2d6 + @{intelligence_mod} - @{calc_encumbered}]] on INT."></button>
+            <button type="roll" name="roll_TestIntelligence" class="sheet-show" value="@{character_name} rolls [[2d6 + @{intelligence_mod} - @{calc_encumbered} + @{calc_next_roll_mod} + @{calc_ongoing_roll_mod}]] on INT."></button>
 		</div>
 		<label class="sheet-bottom" for="attr_intelligence_mod">INT</label>
 	</div>
@@ -157,7 +187,7 @@
             <input type="hidden" name="attr_calc_wisdom_mod" value="0" />
 			<input type="number" name="attr_wisdom_mod" value="@{calc_wisdom_mod}" disabled="true" />
 			<input type="checkbox" name="attr_toggle_double_encumbered_wisdom" class="sheet-toggle-double-encumbered" value="1" />
-			<button type="roll" name="roll_TestWisdom" class="sheet-show" value="@{character_name} rolls [[2d6 + @{wisdom_mod} - @{calc_encumbered}]] on WIS."></button>
+			<button type="roll" name="roll_TestWisdom" class="sheet-show" value="@{character_name} rolls [[2d6 + @{wisdom_mod} - @{calc_encumbered} + @{calc_next_roll_mod} + @{calc_ongoing_roll_mod}]] on WIS."></button>
 		</div>
 		<label class="sheet-bottom" for="attr_wisdom_mod">WIS</label>
 	</div>
@@ -173,7 +203,7 @@
             <input type="hidden" name="attr_calc_charisma_mod" value="0" />
             <input type="number" name="attr_charisma_mod" value="@{calc_charisma_mod}" disabled="true" />
             <input type="checkbox" name="attr_toggle_double_encumbered_charisma" class="sheet-toggle-double-encumbered" value="1" />
-            <button type="roll" name="roll_TestCharisma" class="sheet-show" value="@{character_name} rolls [[2d6 + @{charisma_mod} - @{calc_encumbered}]] on CHA."></button>
+            <button type="roll" name="roll_TestCharisma" class="sheet-show" value="@{character_name} rolls [[2d6 + @{charisma_mod} - @{calc_encumbered} + @{calc_next_roll_mod} + @{calc_ongoing_roll_mod}]] on CHA."></button>
 		</div>
 		<label class="sheet-bottom" for="attr_charisma_mod">CHA</label>
 	</div>
@@ -189,7 +219,7 @@
             <input type="hidden" name="attr_calc_luck_mod" value="0" />
 			<input type="number" name="attr_luck_mod" value="@{calc_luck_mod}" disabled="true" />
 			<input type="checkbox" name="attr_toggle_double_encumbered_luck" class="sheet-toggle-double-encumbered" value="1" />
-            <button type="roll" name="roll_TestLuck" class="sheet-show" value="@{character_name} rolls [[2d6 + @{luck_mod} - @{calc_encumbered}]] on LUC."></button>
+            <button type="roll" name="roll_TestLuck" class="sheet-show" value="@{character_name} rolls [[2d6 + @{luck_mod} - @{calc_encumbered} + @{calc_next_roll_mod} + @{calc_ongoing_roll_mod}]] on LUC."></button>
 		</div>
 		<label class="sheet-bottom" for="attr_luck_mod">LUC</label>
 	</div>
@@ -256,6 +286,9 @@
                     <option value="9">9</option>
                 </select>
                 <div class="sheet-clearfix"></div>
+                Value: 
+                <input name="attr_itemvalue" type="number" min="0" value="0"/>
+                <div class="sheet-clearfix"></div>
                 <input type="checkbox" name="attr_itemweapon_damaged" value="1">Damaged</input>
                 <div class="sheet-clearfix"></div>
     	    </div>
@@ -298,6 +331,9 @@
                 <option value="8">8</option>
                 <option value="9">9</option>
             </select>
+            <div class="sheet-clearfix"></div>
+            Value: 
+            <input name="attr_itemvalue" type="number" min="0" value="0"/>
             <div class="sheet-clearfix"></div>
             <input type="checkbox" name="attr_shield_damaged" value="1">Damaged</input>
             <div class="sheet-clearfix"></div>
@@ -343,6 +379,9 @@
                     <option value="9">9</option>
                 </select>
                 <div class="sheet-clearfix"></div>
+                Value: 
+                <input name="attr_itemvalue" type="number" min="0" value="0"/>
+                <div class="sheet-clearfix"></div>
                 <input type="checkbox" name="attr_itemarmor_damaged" value="1">Damaged</input>
                 <div class="sheet-clearfix"></div>
             </div>
@@ -373,6 +412,9 @@
                     <option value="8">8</option>
                     <option value="9">9</option>
                 </select>
+                <div class="sheet-clearfix"></div>
+                Value: 
+                <input name="attr_itemvalue" type="number" min="0" value="0"/>
                 <div class="sheet-clearfix"></div>
                 <input type="checkbox" name="attr_item_damaged" value="1">Damaged</input>
             </div>
@@ -488,6 +530,48 @@ on("change:class", function() {
             calc_hitdice: hitDice
         });
     }); 
+});
+
+//NEXT ROLL MODIFIER CHANGE EVENT HANDLER
+//Adds the calculated plus or minus modifier to the rolls. 
+//Note: This is a toggle, it continues to apply the bonus until turned off. 
+on("change:rollmods_next_roll_value change:rollmods_next_roll", function() {
+    getAttrs(["rollmods_next_roll_value", "rollmods_next_roll"], function(values) {
+        var nextRollChecked = Number(values.rollmods_next_roll);
+        var nextRollModifierValue = Number(values.rollmods_next_roll_value);
+        
+        if (nextRollChecked == 1) {
+            setAttrs({
+                calc_next_roll_mod: nextRollModifierValue
+            });
+        }
+        else {
+            setAttrs({
+                calc_next_roll_mod: Number(0)
+            });
+        }
+    });
+});
+
+//ON-GOING ROLL MODIFIER CHANGE EVENT HANDLER
+//Adds the calculated plus or minus modifier to the rolls. 
+//Note: This is a toggle, it continues to apply the bonus until turned off. 
+on("change:rollmods_ongoing_value change:rollmods_ongoing", function() {
+    getAttrs(["rollmods_ongoing_value", "rollmods_ongoing"], function(values) {
+        var ongoingChecked = Number(values.rollmods_ongoing);
+        var ongoingRollModifierValue = Number(values.rollmods_ongoing_value);
+        
+        if (ongoingChecked == 1) {
+            setAttrs({
+                calc_ongoing_roll_mod: ongoingRollModifierValue
+            });
+        }
+        else {
+            setAttrs({
+                calc_ongoing_roll_mod: Number(0)
+            });
+        }
+    });
 });
 
 //STRENGTH MODIFIER CHANGE EVENT HANDLER

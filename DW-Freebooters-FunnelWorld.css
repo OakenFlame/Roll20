@@ -158,6 +158,78 @@ input {
     margin-left: 2px;
 }
 
+/* ===== ROLL MODIFIERS ===== */
+.sheet-roll-modifiers {
+    width: 100%;
+}
+
+.sheet-roll-modifiers .sheet-section-name {
+    width: 100px;
+}
+
+.sheet-rollmod-toggles {
+    float: right;
+    width: auto;
+}
+
+.sheet-rollmod-toggles select {
+    color: #555;
+    border: 0px;
+    display: inline;
+    float: left;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 2px;
+    margin-left: 15px;
+}
+
+.sheet-rollmod-toggles label {
+    display: inline;
+    float: left;
+    line-height: 20px;
+    margin-top: 5px;
+    padding: 0px;
+    width: auto;
+}
+
+.sheet-rollmod-toggles label:hover {
+	cursor: pointer;
+}
+
+.sheet-rollmod-toggles input[type=checkbox] {
+	border: 0; 
+	clip: rect(0 0 0 0); 
+	height: 1px; 
+	margin: -1px; 
+	overflow: hidden; 
+	padding: 0; 
+	width: 1px;
+}
+
+.sheet-rollmod-toggles input[type=checkbox] + span {
+	background: white;
+	border-radius: 4px;
+	padding: 1px 6px;
+	background-color: white;
+	color: #D3D3D3;
+	text-align: center;
+	font-size: 20px;
+	font-weight: bold;
+    margin-right: 2px;
+    padding: 4px;
+    padding-top: 2px;
+    height: 25px;
+    
+}
+
+.sheet-rollmod-toggles input[type=checkbox]:checked + span {
+	color: rgb(35, 31, 32);
+}
+
+.sheet-rollmod-toggles input[type=checkbox]:focus + span {
+    border-color: #6e9ec6;
+}
+
 /* ===== STATISTICS (HIT DICE / ARMOR / LEVEL / XP / HP) ===== */
 .sheet-statistics {
 	width: 100%;
@@ -345,6 +417,11 @@ input[name="attr_load_max"], input[name="attr_load"] {
 	float: left;
 }
 
+.sheet-section-weapons input[name="attr_itemvalue"] {
+    text-align: right;
+	width: 60px;
+}
+
 /* ===== SHIELD ===== */
 .sheet-section-shield input[name="attr_shieldname"] {
 	width: 95%;
@@ -363,6 +440,10 @@ input[name="attr_load_max"], input[name="attr_load"] {
 	float: left;
 }
 
+.sheet-section-shield input[name="attr_itemvalue"] {
+    text-align: right;
+	width: 60px;
+}
 
 /* ===== ARMOR ===== */
 .sheet-section-armor input[name="attr_itemname"] {
@@ -382,6 +463,11 @@ input[name="attr_load_max"], input[name="attr_load"] {
 	float: left;
 }
 
+.sheet-section-armor input[name="attr_itemvalue"] {
+    text-align: right;
+	width: 60px;
+}
+
 /* ===== GEAR ===== */
 .sheet-section-gear input[name="attr_itemname"] {
     width: 95%;
@@ -392,6 +478,11 @@ input[name="attr_load_max"], input[name="attr_load"] {
 
 .sheet-section-gear input[name="attr_itemweight"] {
 	float: left;
+}
+
+.sheet-section-gear input[name="attr_itemvalue"] {
+    text-align: right;
+	width: 60px;
 }
 
 /* ===== COINS ===== */
